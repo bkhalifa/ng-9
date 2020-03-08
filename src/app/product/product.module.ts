@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ProductComponent } from './product.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { productRoutes } from './product.route';
 import { CategoryService } from '../category/category.service';
 import { CategoryResolverService } from '../category/category-resolver.service';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({

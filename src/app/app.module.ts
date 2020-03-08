@@ -7,10 +7,9 @@ import { AppComponent } from './app.component';
 
 import { NavBarComponent } from './shared/nav-bar.component';
 import { ProductResolveService } from './product/product-resolve.service';
-import { CategoryComponent } from './category/category.component';
-import { CategoryService } from './category/category.service';
-import { HttpClient } from '@angular/common/http';
 import { PorductModule } from './product/product.module';
+import { ProfileModule } from './user/profile.module';
+import { ProfileSevice } from './user/profile.service';
 
 
 
@@ -19,7 +18,8 @@ import { PorductModule } from './product/product.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-  PorductModule
+    PorductModule,
+    ProfileModule
 
   ],
   declarations: [
@@ -32,7 +32,7 @@ import { PorductModule } from './product/product.module';
       provide: APP_BASE_HREF, useValue: '/'
     },
     ProductResolveService,
-
+    ProfileSevice
   ],
 
   bootstrap: [AppComponent]
