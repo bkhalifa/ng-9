@@ -19,7 +19,8 @@ import { ProfileSevice } from './user/profile.service';
     BrowserModule,
     AppRoutingModule,
     PorductModule,
-    ProfileModule
+    ProfileModule,
+
 
   ],
   declarations: [

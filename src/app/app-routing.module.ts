@@ -22,7 +22,9 @@ const routes: Routes = [
   {
    path:'user',
    loadChildren:()=> import('./user/profile.module').then(m=>m.ProfileModule)
-  }
+  },
+  {path:'product',
+  loadChildren:()=>import('./product/product.module').then(m=>m.PorductModule)}
 ];
 
 @NgModule({

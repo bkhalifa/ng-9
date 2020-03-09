@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>Ajouter Produit </h2>
+
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"></div>
+      <div class="panel-body">
+
+        <form [formGroup]="prodcutForm" (submit)="PostProduit(prodcutForm.value)" autocomplete="off" >
+          <em *ngIf="prodcutForm.controls.modelNumber?.invalid && (prodcutForm.controls.modelNumber?.touched)">Required</em>
+          <div class="form-group">
+            <label for="ModelNumber">Model Number</label>
+            <input type="text" class="form-control" id="ModelNumber"
+            formControlName="modelNumber"
+            [ngClass]="{'error': prodcutForm.controls.modelNumber?.invalid
+                  && prodcutForm.controls.modelNumber?.dirty}"    />
+
+          </div>
+
+          <div class="form-group">
+            <label for="ImageModel">Image url</label>
+            <input type="text"  class="form-control"
+            formControlName="imageModel"
+
+            />
+
+          </div>
+
+          <div class="form-group">
+            <label for="ModelName">Model Name</label>
+            <input type="text" class="form-control" required id="ModelName"
+            formControlName="modelName"
+            [ngClass]="{'error': prodcutForm.controls.modelName?.invalid
+            && prodcutForm.controls.modelName?.dirty}">
+
+          </div>
+
+          <div class="form-group">
+            <label for="unitcost">unit Cost </label>
+            <input type="number" class="form-control"
+             id="unitcost"  name="uniCost"
+              step="0.01"
+              formControlName="unitCost" >
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control"
+            id="description" rows="3"
+            name="description"
+            formControlName="description"
+            > </textarea>
+          </div>
+
+
+            <button type="submit"  class="btn btn-success">envoyer</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+

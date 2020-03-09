@@ -11,15 +11,22 @@ import { productRoutes } from './product.route';
 import { CategoryService } from '../category/category.service';
 import { CategoryResolverService } from '../category/category-resolver.service';
 import { CommonModule } from '@angular/common';
+import { CreateProductComponent } from './create-product.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
 imports:[
    CommonModule,
    HttpClientModule,
+   FormsModule,
+   ReactiveFormsModule,
    RouterModule.forChild(productRoutes)] ,
 
-   declarations:[ProductComponent,CategoryComponent ],
+  declarations: [ProductComponent,
+    CategoryComponent,
+    CreateProductComponent
+    ],
 
    exports:[],
 
