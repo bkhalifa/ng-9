@@ -10,6 +10,8 @@ import { ProductResolveService } from './product/product-resolve.service';
 import { PorductModule } from './product/product.module';
 import { ProfileModule } from './user/profile.module';
 import { ProfileSevice } from './user/profile.service';
+import { SharedService } from './shared/shared.service';
+
 
 
 
@@ -33,7 +35,8 @@ import { ProfileSevice } from './user/profile.service';
       provide: APP_BASE_HREF, useValue: '/'
     },
     ProductResolveService,
-    ProfileSevice
+    ProfileSevice,
+    SharedService
   ],
 
   bootstrap: [AppComponent]

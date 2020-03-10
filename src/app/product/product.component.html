@@ -1,6 +1,18 @@
+<div class="row">
+  <div class="col-md-3">
+  <a (click)="addModeProduct()"> produits</a>
+  </div>
+  <div class="col-md-3">
+      <a (click)="addModeSession()">ajouter session  </a>
+  </div>
+</div>
 
 
-
-<ul>
-  <li *ngFor="let p of products">{{p.modelName}}</li>
+<div *ngIf="addMode" >
+  <add-product (notifyCancelMode)="cancelMode($event)"></add-product>
+</div>
+<ul *ngIf="!addMode" >
+  <li *ngFor="let p of products" >{{p.modelName}}</li>
 </ul>
+
+

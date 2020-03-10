@@ -7,27 +7,34 @@
       <div class="panel-body">
 
         <form [formGroup]="prodcutForm" (submit)="PostProduit(prodcutForm.value)" autocomplete="off" >
-          <em *ngIf="prodcutForm.controls.modelNumber?.invalid && (prodcutForm.controls.modelNumber?.touched)">Required</em>
+          <!-- <em *ngIf="prodcutForm.controls.modelNumber?.invalid &&
+           (prodcutForm.controls.modelNumber?.touched)">Required</em> -->
+           <!-- <em *ngIf="!prodcutForm.controls.modelNumber.errors.required">required</em> -->
+           <em *ngIf="f.modelNumber.invalid &&
+           (f.modelNumber.dirty || f.modelNumber.touched)"> required</em>
           <div class="form-group">
             <label for="ModelNumber">Model Number</label>
             <input type="text" class="form-control" id="ModelNumber"
             formControlName="modelNumber"
             [ngClass]="{'error': prodcutForm.controls.modelNumber?.invalid
-                  && prodcutForm.controls.modelNumber?.dirty}"    />
+                && prodcutForm.controls.modelNumber?.dirty}"    />
 
           </div>
 
+
+
           <div class="form-group">
             <label for="ImageModel">Image url</label>
+            <em *ngIf=" f.imageModel.invalid &&(f.imageModel.dirty || f.imageModel.touched)">
+              required </em>
             <input type="text"  class="form-control"
-            formControlName="imageModel"
-
-            />
+            formControlName="imageModel" />
 
           </div>
 
           <div class="form-group">
             <label for="ModelName">Model Name</label>
+            <em *ngIf="f.modelName?.invalid &&(f.modelName?.touched || f.modelName?.dirty)"> required </em>
             <input type="text" class="form-control" required id="ModelName"
             formControlName="modelName"
             [ngClass]="{'error': prodcutForm.controls.modelName?.invalid
@@ -37,7 +44,8 @@
 
           <div class="form-group">
             <label for="unitcost">unit Cost </label>
-            <input type="number" class="form-control"
+            <em *ngIf="f.uniCost?.invalid && (f.uniCost.touched || f.uniCost.dirty)"> pattern money</em>
+            <input  type="number" class="form-control"
              id="unitcost"  name="uniCost"
               step="0.01"
               formControlName="unitCost" >
@@ -56,7 +64,8 @@
 
 
             <button type="submit"  class="btn btn-success">envoyer</button>
-
+            &nbsp;
+            <button (click)="cancel()" class="btn btn-secondary">Annuler</button>
         </form>
       </div>
     </div>

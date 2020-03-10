@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
+  selector:'add-product',
   templateUrl: './create-product.component.html',
   styles:[`
     em {float:right; color:#e05c65; padding-left: 10px;}
@@ -13,18 +14,22 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   `]
 })
 export class CreateProductComponent implements OnInit {
-
+ @Output()
+ notifyCancelMode = new EventEmitter()
   prodcutForm: FormGroup
   modelName: FormControl
   modelNumber: FormControl
   imageModel: FormControl
   unitCost: FormControl
   description: FormControl
+
+  get f() { return this.prodcutForm.controls; }
+
   ngOnInit(): void {
     this.modelName = new FormControl('')
-    this.modelNumber = new FormControl('', Validators.required)
+    this.modelNumber = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z].*')])
     this.imageModel = new FormControl('', Validators.required)
-    this.unitCost = new FormControl('', Validators.required)
+    this.unitCost = new FormControl('', [Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
     this.description = new FormControl('', Validators.required)
 
     this.prodcutForm = new FormGroup({
@@ -43,6 +48,9 @@ export class CreateProductComponent implements OnInit {
   onFileChanged(file) {
 
   }
+  cancel(){
+   this.notifyCancelMode.emit(false)
 
+  }
 
 }
