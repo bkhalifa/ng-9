@@ -6,7 +6,10 @@ body{
   background-color: #485563;
   cursor: pointer;
 }
-
+.pointable{
+  background-color: #485563;
+  cursor: pointer;
+}
 .container {
   padding-top: 10px;
 }
