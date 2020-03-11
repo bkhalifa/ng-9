@@ -16,6 +16,7 @@ import { SharedService } from './shared/shared.service';
 
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -28,6 +29,7 @@ import { SharedService } from './shared/shared.service';
   declarations: [
     AppComponent,
     NavBarComponent
+
   ],
 
   providers: [

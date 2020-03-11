@@ -13,6 +13,7 @@ import { CategoryResolverService } from '../category/category-resolver.service';
 import { CommonModule } from '@angular/common';
 import { CreateProductComponent } from './create-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CollapsibleComponent } from '../shared/collapsible.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ imports:[
 
   declarations: [ProductComponent,
     CategoryComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    CollapsibleComponent
     ],
 
    exports:[],
