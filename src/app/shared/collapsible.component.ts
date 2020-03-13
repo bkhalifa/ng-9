@@ -9,11 +9,13 @@ import { Component, Input } from "@angular/core";
 </div>
   `
 })
-export class CollapsibleComponent{
+export class CollapsibleComponent {
+
   isVisible:boolean
 @Input() title:string
-
+@Input() filter :string
 toggleContent(){
   this.isVisible = !this.isVisible
 }
+
 }

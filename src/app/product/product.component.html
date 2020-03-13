@@ -2,6 +2,13 @@
   <div class="col-md-3">
     <a (click)="addModeProduct()"> produits</a>
   </div>
+  <div class="col-md-6">
+    <button class="btn btn-info" [class.active]="filterBy=='all'"
+    (click)="filterProducts('all')">All</button>&nbsp;
+    <button class="btn btn-info" [class.active]="filterBy=='test'"
+     (click)="filterProducts('test')">test</button>
+
+  </div>
   <div class="col-md-3">
     <a (click)="addModeSession()">ajouter session </a>
   </div>
@@ -11,9 +18,10 @@
 <div *ngIf="addMode">
   <add-product (notifyCancelMode)="cancelMode($event)"></add-product>
 </div>
+
 <ul *ngIf="!addMode">
-  <li *ngFor="let p of products">
-    <collapsible-well [title]="p.modelName">
+  <li *ngFor="let p of this.products">
+    <collapsible-well [title]="p.modelName" >
       <span>Numéro : {{p.modelNumber}}</span><br />
       <span>Prix: {{p.unitCost}}</span>
       <p>{{p.description}}</p>

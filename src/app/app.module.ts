@@ -11,10 +11,11 @@ import { PorductModule } from './product/product.module';
 import { ProfileModule } from './user/profile.module';
 import { ProfileSevice } from './user/profile.service';
 import { SharedService } from './shared/shared.service';
+import { TOASTR_TOKEN, Toastr } from './shared/toastr.service';
 
 
 
-
+declare let toastr: Toastr
 
 
 @NgModule({
@@ -23,18 +24,20 @@ import { SharedService } from './shared/shared.service';
     AppRoutingModule,
     PorductModule,
     ProfileModule,
-
-
   ],
   declarations: [
     AppComponent,
     NavBarComponent
 
   ],
-
   providers: [
     {
-      provide: APP_BASE_HREF, useValue: '/'
+      provide: APP_BASE_HREF,
+      useValue: '/'
+    },
+    {
+      provide: TOASTR_TOKEN,
+      useValue: toastr
     },
     ProductResolveService,
     ProfileSevice,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Product } from '../core/product';
 import { ProductService } from '../core/product.service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,13 +18,21 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductComponent implements OnInit{
 
   products :Product[]
+  productArray :Product[]= new  Array<Product>()
   addMode :boolean = false
+  filterBy:string =''
 constructor(private _productService : ProductService, private route:ActivatedRoute){}
+
 
 ngOnInit(): void {
   this.products = this.route.snapshot.data.products;
 }
 
+// ngOnChanges(): void {
+// if(this.products){
+//   this.filterProducts(this.filterBy)
+// }
+//}
 addModeSession(){
 this.addMode = true
 }
@@ -34,4 +42,16 @@ addModeProduct(){
 cancelMode(flag:any){
 this.addMode = flag;
 }
+
+filterProducts(filter){
+if(filter ==='all'){
+  this.products = this.productArray
+}else{
+ this.productArray = this.products
+ this.products = this.products.filter(pr =>  pr.modelName.toLocaleLowerCase().includes(filter) )
+
+
+}
+}
+
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Toastr, TOASTR_TOKEN } from '../shared/toastr.service';
 
 @Component({
   selector:'add-product',
@@ -14,8 +15,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   `]
 })
 export class CreateProductComponent implements OnInit {
- @Output()
- notifyCancelMode = new EventEmitter()
+ @Output() notifyCancelMode = new EventEmitter()
+ constructor(@Inject(TOASTR_TOKEN)  private  toastr:Toastr){}
   prodcutForm: FormGroup
   modelName: FormControl
   modelNumber: FormControl
@@ -44,6 +45,7 @@ export class CreateProductComponent implements OnInit {
 
   PostProduit(formValue) {
     console.log(formValue)
+    this.toastr.success("saved ok ,","product")
   }
   onFileChanged(file) {
 
