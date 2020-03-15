@@ -12,11 +12,15 @@ import { ProfileModule } from './user/profile.module';
 import { ProfileSevice } from './user/profile.service';
 import { SharedService } from './shared/shared.service';
 import { TOASTR_TOKEN, Toastr } from './shared/toastr.service';
+import { JQ_TOKEN } from './shared/jquery.service';
+import { FormsModule } from '@angular/forms';
+import { SimpleModalComponent } from './shared/simple-modal.component';
+import { ModalTriggerComponent } from './shared/modal-trigger.directive';
 
 
 
 declare let toastr: Toastr
-
+let jquery = window['$']
 
 @NgModule({
   imports: [
@@ -24,10 +28,13 @@ declare let toastr: Toastr
     AppRoutingModule,
     PorductModule,
     ProfileModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent,
+    SimpleModalComponent,
+    ModalTriggerComponent
 
   ],
   providers: [
@@ -38,6 +45,10 @@ declare let toastr: Toastr
     {
       provide: TOASTR_TOKEN,
       useValue: toastr
+    },
+    {
+      provide:JQ_TOKEN,
+      useValue:jquery
     },
     ProductResolveService,
     ProfileSevice,

@@ -1,9 +1,10 @@
-import { Component, ElementRef, ViewChild, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input, Output, EventEmitter, OnInit, InjectionToken, Inject } from "@angular/core";
 import { ProfileSevice } from '../user/profile.service';
 import { Product } from '../core/product';
 import { CategoryService } from '../category/category.service';
-import { CategoryComponent } from '../category/category.component';
 import { SharedService } from './shared.service';
+import { ProductService } from '../core/product.service';
+import { JQ_TOKEN } from './jquery.service';
 
 @Component({
   selector: 'nav-bar',
@@ -18,9 +19,14 @@ import { SharedService } from './shared.service';
   `]
 })
 export class NavBarComponent {
+
   constructor(public profileService: ProfileSevice,
     private categoryService: CategoryService,
-    private sharedService: SharedService) { }
+    private productService :ProductService,
+    private sharedService: SharedService, @Inject(JQ_TOKEN)private $ :any) { }
+    text="mathing produits"
+    searchTerm: string = ""
+    foundProducts : Product[] =[]
 
   @ViewChild('searchText') inputSearch: ElementRef;
 
@@ -29,4 +35,14 @@ export class NavBarComponent {
 
   }
 
+  searchData(searchTerm:string){
+    this.productService.searchData(searchTerm).subscribe(
+      res => this.foundProducts = res,
+
+    )
+    console.log(this.foundProducts)
+  }
+  onSearch(){
+    this.$('#simple-modal').modal({})
+  }
 }

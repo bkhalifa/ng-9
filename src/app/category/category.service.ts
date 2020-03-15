@@ -16,9 +16,8 @@ export class CategoryService {
   constructor(private _http: HttpClient,
              private route: ActivatedRoute) { }
 
-
   categories$ : Observable<any>
-  categories : Category[]
+  categories  : Category[]
   public searchText :string
 
   GetAllCategories = () => {

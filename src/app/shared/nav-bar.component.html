@@ -42,6 +42,17 @@
       <button class="btn btn-outline-success my-2 my-sm-0"
       (click)="searchProducts()">Search</button>
     </div>
+    &nbsp;
+
+
+    <form (ngSubmit)="searchData(searchTerm)">
+  <div class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2"  type="search"
+    placeholder="Search products" aria-label="Search"
+     [(ngModel)]="searchTerm"  name="searchTerm">
+    <button class="btn btn-outline-success my-2 my-sm-0" modal-trigger>Search </button>
+  </div>
+</form>
 
 
 
@@ -56,6 +67,14 @@
     </div>
   </div>
 </nav>
+
+<simple-modal title="text">
+  <div class="list-group">
+    <a class="list-group-item"
+    *ngFor="let p of foundProducts" [routerLink]="['/']">{{p.modelName}}</a>
+  </div>
+
+</simple-modal>
 
 
 

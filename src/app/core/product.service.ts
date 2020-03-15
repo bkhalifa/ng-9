@@ -31,10 +31,20 @@ export class ProductService{
       map(projects => projects.filter(proj => proj.modelName.toLowerCase() === searchElem))
       )
 
-
-
     }
   }
+
+
+  searchData(searchText:string){
+    if(!!searchText){
+      let datas = this._http.get<Array<Product>>(this._urlApiGetProduct)
+      return datas.pipe(
+        map(produits => produits.filter(p =>p.modelName.toLocaleLowerCase()
+        .includes(searchText.toLocaleLowerCase()))
+        ))
+      }
+  }
+
 }
 
 
