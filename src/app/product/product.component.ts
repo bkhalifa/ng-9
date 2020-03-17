@@ -1,7 +1,9 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit,Inject, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { Product } from '../core/product';
 import { ProductService } from '../core/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { JQ_TOKEN } from '../shared/jquery.service';
+
 
 
 
@@ -20,19 +22,24 @@ export class ProductComponent implements OnInit{
   products :Product[]
   productArray :Product[]= new  Array<Product>()
   addMode :boolean = false
-  filterBy:string =''
-constructor(private _productService : ProductService, private route:ActivatedRoute){}
+  filterBy:string = ""
+
+  foundProduct :Product
+  @ViewChild('prid') prid:ElementRef;
+
+constructor(private _productService : ProductService,
+            private route:ActivatedRoute,
+
+            @Inject(JQ_TOKEN) private $:any){
+
+            }
 
 
 ngOnInit(): void {
   this.products = this.route.snapshot.data.products;
 }
 
-// ngOnChanges(): void {
-// if(this.products){
-//   this.filterProducts(this.filterBy)
-// }
-//}
+
 addModeSession(){
 this.addMode = true
 }
@@ -50,8 +57,17 @@ if(filter ==='all'){
  this.productArray = this.products
  this.products = this.products.filter(pr =>  pr.modelName.toLocaleLowerCase().includes(filter) )
 
+}
+}
 
+
+diplayDetail(pid:number){
+
+  this._productService.detailProduct(pid).subscribe(
+    res => this.foundProduct = res
+   )
+   this.$('#detail-products').modal({})
 }
-}
+
 
 }

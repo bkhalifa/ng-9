@@ -13,6 +13,8 @@ export class ProductService{
 
   private _urlApiGetProduct :string ='http://localhost:8081/api/product';
 
+  foundProduct : Product
+
    constructor(private _http :HttpClient){}
 
 
@@ -45,6 +47,14 @@ export class ProductService{
       }
   }
 
+  detailProduct(productId:number):any{
+    return this._http
+    .get<Array<Product>>(this._urlApiGetProduct)
+   .pipe(
+     map(p=>p.find(pr=>pr.productId===productId))
+   )
+
+  }
 }
 
 

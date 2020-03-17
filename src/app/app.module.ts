@@ -16,6 +16,7 @@ import { JQ_TOKEN } from './shared/jquery.service';
 import { FormsModule } from '@angular/forms';
 import { SimpleModalComponent } from './shared/simple-modal.component';
 import { ModalTriggerComponent } from './shared/modal-trigger.directive';
+import { DetailProductComponent } from './shared/modal/detail-modal.component';
 
 
 
@@ -35,6 +36,7 @@ let jquery = window['$']
     NavBarComponent,
     SimpleModalComponent,
     ModalTriggerComponent
+
 
   ],
   providers: [

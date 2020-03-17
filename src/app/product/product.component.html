@@ -22,7 +22,15 @@
 <ul *ngIf="!addMode">
   <li *ngFor="let p of this.products">
     <collapsible-well [title]="p.modelName" >
-      <span>Numéro : {{p.modelNumber}}</span><br />
+
+    <span (click)="diplayDetail(p.productId)" >Numéro :  {{p.modelNumber}} </span>
+
+      <!-- <span trigger-detail-product-modal data-id="{{p.productId}}" #prid >Numéro :
+         {{p.modelNumber}}  </span> -->
+      <!-- <span >Numéro :<a [routerLink]="['/details',p.productId]">
+        {{p.modelNumber}}  </a>
+      <!-- </span> -->
+   <br />
       <span>Prix: {{p.unitCost}}</span>
       <p>{{p.description}}</p>
     </collapsible-well>
@@ -30,3 +38,8 @@
 
   </li>
 </ul>
+
+<modal-detail-product  title="detail-product"  >
+
+ <detail-product [foundProduct] = "foundProduct"></detail-product>
+</modal-detail-product>

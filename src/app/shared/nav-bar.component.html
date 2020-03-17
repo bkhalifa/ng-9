@@ -50,7 +50,7 @@
     <input class="form-control mr-sm-2"  type="search"
     placeholder="Search products" aria-label="Search"
      [(ngModel)]="searchTerm"  name="searchTerm">
-    <button class="btn btn-outline-success my-2 my-sm-0" modal-trigger>Search </button>
+    <button class="btn btn-outline-success my-2 my-sm-0" modal-trigger="searchResults">Search </button>
   </div>
 </form>
 
@@ -68,7 +68,7 @@
   </div>
 </nav>
 
-<simple-modal title="text">
+<simple-modal elementId ="searchResults" title="text">
   <div class="list-group">
     <a class="list-group-item"
     *ngFor="let p of foundProducts" [routerLink]="['/']">{{p.modelName}}</a>
