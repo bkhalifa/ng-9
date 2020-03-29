@@ -16,7 +16,8 @@ import { JQ_TOKEN } from './shared/jquery.service';
 import { FormsModule } from '@angular/forms';
 import { SimpleModalComponent } from './shared/simple-modal.component';
 import { ModalTriggerComponent } from './shared/modal-trigger.directive';
-import { DetailProductComponent } from './shared/modal/detail-modal.component';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
 
@@ -30,14 +31,13 @@ let jquery = window['$']
     PorductModule,
     ProfileModule,
     FormsModule
+
   ],
   declarations: [
     AppComponent,
     NavBarComponent,
     SimpleModalComponent,
     ModalTriggerComponent
-
-
   ],
   providers: [
     {

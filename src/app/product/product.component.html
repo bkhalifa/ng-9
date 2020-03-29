@@ -20,7 +20,7 @@
 </div>
 
 <ul *ngIf="!addMode">
-  <li *ngFor="let p of this.products">
+  <li *ngFor="let p of this.products ">
     <collapsible-well [title]="p.modelName" >
 
     <span (click)="diplayDetail(p.productId)" >Numéro :  {{p.modelNumber}} </span>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product';
 import {map} from 'rxjs/operators';
-import { find} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 
@@ -11,7 +10,7 @@ export class ProductService{
 
   private products :Observable<Product[]>
 
-  private _urlApiGetProduct :string ='http://localhost:8081/api/product';
+  private productsUrl = 'api/products';
 
   foundProduct : Product
 
@@ -20,7 +19,7 @@ export class ProductService{
 
   GetProducts():Observable<Product[]>{
    this.products = this._http
-                  .get<Array<Product>>(this._urlApiGetProduct)
+                  .get<Array<Product>>(this.productsUrl)
 
        return this.products
   }
@@ -28,7 +27,7 @@ export class ProductService{
   searchProducts(searchElem){
     if(!!searchElem){
       let pr = this._http
-          .get<Array<Product>>(this._urlApiGetProduct)
+          .get<Array<Product>>(this.productsUrl)
       return pr.pipe(
       map(projects => projects.filter(proj => proj.modelName.toLowerCase() === searchElem))
       )
@@ -39,7 +38,7 @@ export class ProductService{
 
   searchData(searchText:string){
     if(!!searchText){
-      let datas = this._http.get<Array<Product>>(this._urlApiGetProduct)
+      let datas = this._http.get<Array<Product>>(this.productsUrl)
       return datas.pipe(
         map(produits => produits.filter(p =>p.modelName.toLocaleLowerCase()
         .includes(searchText.toLocaleLowerCase()))
@@ -49,7 +48,7 @@ export class ProductService{
 
   detailProduct(productId:number):any{
     return this._http
-    .get<Array<Product>>(this._urlApiGetProduct)
+    .get<Array<Product>>(this.productsUrl)
    .pipe(
      map(p=>p.find(pr=>pr.productId===productId))
    )
