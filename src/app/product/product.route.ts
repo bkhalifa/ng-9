@@ -7,7 +7,7 @@ import { ProductDetailComponent } from './product-detail.component';
 
 export const productRoutes :Routes =[
 {
-  path:'products' ,
+  path:'all' ,
   component:ProductComponent,
   resolve :{ products: ProductResolveService }
 },

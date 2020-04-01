@@ -4,7 +4,6 @@ import { ProductComponent } from './product.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryComponent } from '../category/category.component';
-import { ProductService } from '../core/product.service';
 import { ProductResolveService } from './product-resolve.service';
 import { RouterModule } from '@angular/router';
 import { productRoutes } from './product.route';
@@ -17,37 +16,41 @@ import { CollapsibleComponent } from '../shared/collapsible.component';
 import { ProductDetailComponent } from './product-detail.component';
 import { DetailProductComponent } from '../shared/modal/detail-modal.component';
 import { TriggerDetailProductDirective } from '../shared/modal/trigger-detail.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ProductData } from './product-data';
+
+
 
 
 
 @NgModule({
-imports:[
-   CommonModule,
-   HttpClientModule,
-   FormsModule,
-   ReactiveFormsModule,
-    RouterModule.forChild(productRoutes) ,
-    HttpClientInMemoryWebApiModule.forRoot(ProductData, { delay: 1500 })
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(productRoutes),
+    // HttpClientInMemoryWebApiModule.forRoot(ProductData, { delay: 1500 })
   ],
-  declarations: [ProductComponent,
+  declarations: [
+    ProductComponent,
     CategoryComponent,
     CreateProductComponent,
     CollapsibleComponent,
     ProductDetailComponent,
     DetailProductComponent,
     TriggerDetailProductDirective
-    ],
 
-   exports:[],
+  ],
 
-   providers:[
-     ProductService,
-     ProductResolveService,
-     CategoryService,
-     CategoryResolverService
-      ]
+  exports: [
+
+  ],
+
+  providers: [
+
+    ProductResolveService,
+    CategoryService,
+    CategoryResolverService
+  ]
 })
 
-export class PorductModule{}
+export class PorductModule { }

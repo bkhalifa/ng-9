@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from './category.service';
-import { Category } from '../core/category';
 import { ActivatedRoute } from '@angular/router';
-import { SharedService } from '../shared/shared.service';
 
+import { CategoryService } from './category.service';
 
 
 @Component({

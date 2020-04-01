@@ -1,5 +1,5 @@
 import { Component, Directive, Output, OnInit, ElementRef, Inject, Input, EventEmitter, ViewChild } from "@angular/core";
-import { Product } from 'src/app/core/product';
+
 import { JQ_TOKEN } from '../jquery.service';
 
 @Directive({

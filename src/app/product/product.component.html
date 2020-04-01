@@ -19,23 +19,16 @@
   <add-product (notifyCancelMode)="cancelMode($event)"></add-product>
 </div>
 
+
 <ul *ngIf="!addMode">
   <li *ngFor="let p of this.products ">
-    <collapsible-well [title]="p.modelName" >
-
+    <!-- collapsible element  -->
+   <collapsible-well [title]="p.modelName" >
     <span (click)="diplayDetail(p.productId)" >Numéro :  {{p.modelNumber}} </span>
-
-      <!-- <span trigger-detail-product-modal data-id="{{p.productId}}" #prid >Numéro :
-         {{p.modelNumber}}  </span> -->
-      <!-- <span >Numéro :<a [routerLink]="['/details',p.productId]">
-        {{p.modelNumber}}  </a>
-      <!-- </span> -->
    <br />
       <span>Prix: {{p.unitCost}}</span>
       <p>{{p.description}}</p>
     </collapsible-well>
-
-
   </li>
 </ul>
 

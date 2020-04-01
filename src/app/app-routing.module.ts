@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryComponent } from './category/category.component';
-import { CategoryService } from './category/category.service';
+
 import { CategoryResolverService } from './category/category-resolver.service';
+
+import { AcceuilComponent } from './accueil/Accueil.component';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'accueil', pathMatch: 'full' },
+  { path: '', component:AcceuilComponent , pathMatch: 'full' },
 
   {
     path: 'categories',
@@ -15,7 +17,7 @@ const routes: Routes = [
     resolve:{categories:CategoryResolverService}
   },
   {
-    path: 'all',
+    path: 'products',
     loadChildren: () => import('./product/product.module').then(m => m.PorductModule),
 
   },
@@ -23,8 +25,10 @@ const routes: Routes = [
    path:'user',
    loadChildren:()=> import('./user/profile.module').then(m=>m.ProfileModule)
   },
-  {path:'product',
-  loadChildren:()=>import('./product/product.module').then(m=>m.PorductModule)}
+  {
+  path:'product',
+  loadChildren:()=>import('./product/product.module').then(m=>m.PorductModule)
+  }
 ];
 
 @NgModule({

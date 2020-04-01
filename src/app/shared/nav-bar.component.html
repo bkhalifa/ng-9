@@ -8,23 +8,23 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-      <a class="nav-link" [routerLink]="['all/products']"
+      <a class="nav-link" [routerLink]="['products/all']"
                            routerLinkActive="active"
                            [routerLinkActiveOptions]="{exact:true}">Produits </a>
       </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" [routerLink]="['product/new']"
         routerLinkActive="active"  >Ajouter Produit</a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link" [routerLink]="['/test']"
         routerLinkActive="active"  >Test</a>
-      </li>
+      </li> -->
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Config
+          Categrories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" [routerLink]="['/categories']">Categorie</a>
@@ -36,12 +36,7 @@
 
     </ul>
 
-    <div class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" #searchText type="search"
-      placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0"
-      (click)="searchProducts()">Search</button>
-    </div>
+
     &nbsp;
 
 
@@ -70,8 +65,8 @@
 
 <simple-modal elementId ="searchResults" title="text">
   <div class="list-group">
-    <a class="list-group-item"
-    *ngFor="let p of foundProducts" [routerLink]="['/']">{{p.modelName}}</a>
+    <a class="list-group-item" [routerLink]="['products/details/',p.productId]"
+    *ngFor="let p of foundProducts" >{{p.modelName}} </a>
   </div>
 
 </simple-modal>

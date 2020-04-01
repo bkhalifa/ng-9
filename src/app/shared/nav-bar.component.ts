@@ -30,17 +30,11 @@ export class NavBarComponent {
 
   @ViewChild('searchText') inputSearch: ElementRef;
 
-  searchProducts() {
-    this.categoryService.searchCategory(this.inputSearch.nativeElement.value)
 
-  }
 
   searchData(searchTerm:string){
-    this.productService.searchData(searchTerm).subscribe(
-      res => this.foundProducts = res,
-
-    )
-    console.log(this.foundProducts)
+  this.foundProducts =  this.productService.searchData(searchTerm)
+    //  console.log(this.foundProducts)
   }
   onSearch(){
     this.$('#simple-modal').modal({})
