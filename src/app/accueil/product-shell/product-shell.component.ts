@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { Product } from 'src/app/core/product';
 import { ProductService } from 'src/app/core/product.service';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ProductComponent } from 'src/app/product/product.component';
+import { ProductTextComponent } from './product-text.component';
 
 @Component({
   selector: 'product-shell',
@@ -15,6 +17,7 @@ export class ProductShellComponent implements OnInit, OnDestroy {
 
   sub: Subscription
   products :Product[]
+  text="Description"
 
   ngOnInit(): void {
  this.sub =   this.productService.productSource$.subscribe(
@@ -25,7 +28,6 @@ export class ProductShellComponent implements OnInit, OnDestroy {
 
     )
   }
-
 
 
   ngOnDestroy(): void {

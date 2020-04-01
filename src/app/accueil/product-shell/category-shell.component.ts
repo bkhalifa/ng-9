@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/core/product.service';
 @Component({
   selector: 'category-shell',
   template: `
-  <p> category- shell </p>
+  <p> &nbsp; </p>
   <ul>
 <li class="cat"
 *ngFor="let category of categories"
@@ -17,7 +17,8 @@ import { ProductService } from 'src/app/core/product.service';
   </ul>
   `,
   styles:[`
-  .cat{cursor:pointer}
+  .cat{cursor:pointer;font-family: 'Arial';color:#e5e5e5}
+
   `]
 })
 export class CategoryShellComponent implements OnInit, OnDestroy {

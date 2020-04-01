@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { CreateProductComponent } from './create-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapsibleComponent } from '../shared/collapsible.component';
-import { ProductDetailComponent } from './product-detail.component';
+import { ProductDetailComponent } from '../shared/product-detail.component';
 import { DetailProductComponent } from '../shared/modal/detail-modal.component';
 import { TriggerDetailProductDirective } from '../shared/modal/trigger-detail.component';
 

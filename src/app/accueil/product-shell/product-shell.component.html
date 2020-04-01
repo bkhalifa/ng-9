@@ -1,6 +1,56 @@
-<p>product-shell works!</p>
-<ul>
-  <li *ngFor="let product of products">
-    {{product.modelName}}
-  </li>
-</ul>
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let product of products">
+      <div class="box-part text-center">
+
+        <!-- <i class="fa fa-instagram fa-3x" aria-hidden="true"></i> -->
+        <div class="row">
+          <div class="col-md-8">
+            &nbsp;
+          </div>
+          <div class="col-md-3">
+            <a href="#"> <img src="assets/images/add_to_basket.png"/></a>
+          </div>
+        </div>
+
+        <div class="title">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>{{product.modelName}}</h4>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+
+            {{product.modelNumber}}
+
+          </div>
+          <div class="col-md-4">
+<span class="currency">
+  {{product.unitCost | currency:'EUR':true}}
+</span>
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+
+            <product-text [description]="product.description" #text></product-text>
+        </div>
+        <div class="col-md-4">
+          <img class="img" src="assets/images/detail.png"  alt="detail"
+           [routerLink]="['detail',product.productId]" />
+        </div>
+        </div>
+     </div>
+      </div>
+
+
+  </div>
+</div>

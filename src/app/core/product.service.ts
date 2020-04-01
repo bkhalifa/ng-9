@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from './product';
 import { tap } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
-import { timingSafeEqual } from 'crypto';
+
 
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ProductService {
 
    private productSource = new Subject<Product[]>();
    productSource$ = this.productSource.asObservable();
-    changeProductSource (selectdProducts : Product[]){
+   changeProductSource (selectdProducts : Product[]){
      this.productSource.next(selectdProducts);
    }
 

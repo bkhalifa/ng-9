@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../core/product';
 import { ProductService } from '../core/product.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector:'detail-product',
@@ -24,7 +25,7 @@ import { ProductService } from '../core/product.service';
 </tbody>
 </table>
 
-<div class="card" *ngIf="product?.productId > 0" >
+<div class="card" *ngIf="!!product" >
   <div class="card-header">
   {{product?.modelName}}
   </div>
@@ -33,19 +34,25 @@ import { ProductService } from '../core/product.service';
     <p class="card-text">
       {{product?.description }}
     </p>
-    <a href="#" class="btn btn-primary">panier</a>
+    <a href="#" class="btn btn-primary" (click)="goBack()">back</a>
   </div>
 </div>
 `
 })
 export class ProductDetailComponent  implements OnInit{
-  constructor(private route:ActivatedRoute, private productService:ProductService){}
+  constructor(private route:ActivatedRoute,
+             private productService:ProductService,
+             private location :Location ){}
 
  @Input()  foundProduct : Product
-  product :Product| null
+  product :Product
+
  ngOnInit(): void {
  let id  = +this.route.snapshot.paramMap.get('productID')
  this.product = this.productService.detailProduct(id);
 
+}
+goBack(){
+  this.location.go('/')
 }
 }
