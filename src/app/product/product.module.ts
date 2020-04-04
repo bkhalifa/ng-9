@@ -21,6 +21,7 @@ import { TriggerDetailProductDirective } from '../shared/modal/trigger-detail.co
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,7 @@ import { TriggerDetailProductDirective } from '../shared/modal/trigger-detail.co
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(productRoutes),
-    // HttpClientInMemoryWebApiModule.forRoot(ProductData, { delay: 1500 })
+
   ],
   declarations: [
     ProductComponent,

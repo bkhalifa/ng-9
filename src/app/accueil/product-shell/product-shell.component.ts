@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy, OnChanges, ViewChild, ElementRef } from '
 import { Product } from 'src/app/core/product';
 import { ProductService } from 'src/app/core/product.service';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ProductComponent } from 'src/app/product/product.component';
-import { ProductTextComponent } from './product-text.component';
+import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'product-shell',
@@ -18,6 +17,7 @@ export class ProductShellComponent implements OnInit, OnDestroy {
   sub: Subscription
   products :Product[]
   text="Description"
+  values :any
 
   ngOnInit(): void {
  this.sub =   this.productService.productSource$.subscribe(

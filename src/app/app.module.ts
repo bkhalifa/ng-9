@@ -18,6 +18,9 @@ import { SimpleModalComponent } from './shared/simple-modal.component';
 import { ModalTriggerComponent } from './shared/modal-trigger.directive';
 import { ProductService } from './core/product.service';
 import { AccueilModule } from './accueil/accueil.module';
+import { NavCatgegoryComponent } from './shared/nav-catgegory/nav-catgegory.component';
+import { BasketComponent } from './basket/basket.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -35,13 +38,14 @@ let jquery = window['$']
     ProfileModule,
     FormsModule,
     AccueilModule
-
   ],
   declarations: [
     AppComponent,
     NavBarComponent,
     SimpleModalComponent,
-    ModalTriggerComponent
+    ModalTriggerComponent,
+    NavCatgegoryComponent,
+    BasketComponent
 
   ],
   providers: [

@@ -1,37 +1,23 @@
-
- <nav class="navbar navbar-expand-lg navbar-nav">
+<nav class="navbar navbar-expand-lg navbar-nav">
   <a class="navbar-brand" href="#">Accueil </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-      <a class="nav-link" [routerLink]="['products/all']"
-                           routerLinkActive="active"
-                           [routerLinkActiveOptions]="{exact:true}">Produits </a>
+        <a class="nav-link" [routerLink]="['products/all']" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact:true}">Produits </a>
       </li>
-
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['product/new']"
-        routerLinkActive="active"  >Ajouter Produit</a>
-      </li> -->
-      <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/test']"
-        routerLinkActive="active"  >Test</a>
-      </li> -->
-
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Categrories
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/categories']">Categorie</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+        <nav-catgegory></nav-catgegory>
+
       </li>
 
     </ul>
@@ -41,36 +27,42 @@
 
 
     <form (ngSubmit)="searchData(searchTerm)">
-  <div class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2"  type="search"
-    placeholder="Search products" aria-label="Search"
-     [(ngModel)]="searchTerm"  name="searchTerm">
-    <button class="btn btn-outline-success my-2 my-sm-0" modal-trigger="searchResults">Search </button>
-  </div>
-</form>
+      <div class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search products" aria-label="Search"
+          [(ngModel)]="searchTerm" name="searchTerm">
+        <button class="btn btn-outline-success my-2 my-sm-0" modal-trigger="searchResults">Search </button>
+      </div>
+    </form>
 
 
 
     <div class="navbar-header navbar-right">
       <ul class="nav navbar-nav">
         <li>
-          <a *ngIf="!profileService.isAuhtenticated()" [routerLink]="['user/profile']">Login</a>
-          <a *ngIf="profileService.isAuhtenticated()" [routerLink]="['user/profile']">
-            Welcome {{profileService.currentUser.userName}}</a>
+          <a *ngIf="!currentUser" [routerLink]="['user/profile']">Login</a>
+          <a *ngIf="isAuthentificate()" [routerLink]="['user/profile']">
+            <li class="nav-item dropdown" *ngIf="isAuthentificate()">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Welcome {{currentUser.firstName}} </a>
+              </a>
+              <a class="dropdown-item" (click)="logOut()" *ngIf="isAuthentificate()"> Logout</a>
+
+            </li>
+
+        <li>
+          &nbsp;
+      <app-basket></app-basket>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<simple-modal elementId ="searchResults" title="text">
+<simple-modal elementId="searchResults" title="text">
   <div class="list-group">
     <a class="list-group-item" [routerLink]="['products/details/',p.productId]"
-    *ngFor="let p of foundProducts" >{{p.modelName}} </a>
+      *ngFor="let p of foundProducts">{{p.modelName}} </a>
   </div>
 
 </simple-modal>
-
-
-
-

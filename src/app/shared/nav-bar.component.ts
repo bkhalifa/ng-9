@@ -1,10 +1,12 @@
-import { Component, ElementRef, ViewChild, Input, Output, EventEmitter, OnInit, InjectionToken, Inject } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input, Output, EventEmitter, OnInit, InjectionToken, Inject, OnDestroy } from "@angular/core";
 import { ProfileSevice } from '../user/profile.service';
 import { Product } from '../core/product';
 import { CategoryService } from '../category/category.service';
 import { SharedService } from './shared.service';
 import { ProductService } from '../core/product.service';
 import { JQ_TOKEN } from './jquery.service';
+import { IUser } from '../user/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'nav-bar',
@@ -18,16 +20,27 @@ import { JQ_TOKEN } from './jquery.service';
   li > a.active {color: #F97924}
   `]
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit, OnDestroy {
 
   constructor(public profileService: ProfileSevice,
-    private categoryService: CategoryService,
-    private productService :ProductService,
-    private sharedService: SharedService, @Inject(JQ_TOKEN)private $ :any) { }
+              private productService :ProductService,
+               @Inject(JQ_TOKEN)private $ :any) { }
+
+
     text="mathing produits"
     searchTerm: string = ""
     foundProducts : Product[] =[]
+    sub :Subscription
+   currentUser :IUser
 
+
+
+  ngOnInit(): void {
+this.sub = this.profileService.currentUser$.subscribe(
+  u => this.currentUser = u
+)
+
+  }
   @ViewChild('searchText') inputSearch: ElementRef;
 
 
@@ -39,4 +52,22 @@ export class NavBarComponent {
   onSearch(){
     this.$('#simple-modal').modal({})
   }
+
+
+
+  isAuthentificate(){
+    if(this.currentUser)
+       return true
+     return false
+  }
+
+  logOut(){
+    this.profileService.logout();
+    this.profileService.currentUser$.subscribe(
+     user => this.currentUser = user
+    )
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe()
+   }
 }

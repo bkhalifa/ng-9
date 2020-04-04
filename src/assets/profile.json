@@ -1,0 +1,16 @@
+[
+      {
+       "id":1,
+       "login":"admin",
+       "password":"password",
+        "role":"admin"
+
+      },
+      {
+        "id":1,
+       "login":"bb",
+       "password":"password",
+        "role":"user"
+
+      }
+    ]

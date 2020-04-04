@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ProfileSevice } from './user/profile.service';
+import { IUser } from './user/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +11,6 @@ import { Component } from '@angular/core';
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent  {}
+
 

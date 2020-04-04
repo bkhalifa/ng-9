@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 @Injectable()
 export class CategoryService {
 
-  private categoryUrl: string = 'http://localhost:8081/api/Category';
+   private categoryUrl: string = 'http://localhost:8081/api/Category';
 
   constructor(private _http: HttpClient,
              private route: ActivatedRoute) { }

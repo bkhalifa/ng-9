@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './product';
-import { tap } from 'rxjs/operators';
-import { Observable, of, Subject } from 'rxjs';
-
-
+import { tap, retry, catchError } from 'rxjs/operators';
+import { Observable, of, Subject, throwError } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-  // private productsUrl = 'api/products';
-  private productsUrl = 'http://localhost:8081/api';
+  //  private productsUrl = 'api/products';
+   private productsUrl = 'http://localhost:8081/api';
 
+   values:any;
    products: Product[];
    selectdProducts :Product[] =null
 
@@ -26,6 +25,7 @@ export class ProductService {
    foundProduct :Product | null ;
 
   GetProducts(): Observable<Product[]> {
+
     if (this.products) {
       this.changeProductSource(this.products)
       return of(this.products);
@@ -69,6 +69,35 @@ findProductsByCategoryID(categoryID:number){
   }
 
 
+  getValues(){
+    let model={
+      Login:"admim",
+      Password:"password"
+    }
+
+    //  this.http.get<any>(`${this.profileUrl}/profile/all`)
+
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   const options = { headers: headers };
+  //  return  this._http.post<any>(`${this.productsUrl}/profile/login`,
+  //                              JSON.stringify(model),options)
+
+   }
+
+
+
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+        // client-side error
+        errorMessage = `Error: ${error.error.message}`;
+    } else {
+        // server-side error
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+}
 }
 
 
