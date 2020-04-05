@@ -2,14 +2,12 @@
 <h1>Login</h1>
 <hr>
 <div class="col-md-4">
-  <form autocomplete="off" #loginForm="ngForm" (ngSubmit)="loginUser(loginForm.value)">
+  <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
     <div class="form-group" >
       <label for="userName">User Name:</label>
       <em *ngIf="loginForm.controls.userName?.invalid &&
       ( loginForm.controls.userName.touched || mouseaction)">required</em>
-      <input id="userName"  (ngModel)="userName"
-       name="userName"
-       type="text"
+      <input id="userName"  formControlName="userName" type="text"
        class="form-control"
        placeholder="User Name..."
        required />
@@ -18,8 +16,7 @@
       <label for="password">Password:</label>
       <em *ngIf="loginForm.controls.password?.invalid &&
       (loginForm.controls.password.touched || mouseaction)">required</em>
-      <input id="password"  (ngModel)="password"
-      name="password"
+      <input id="password"  formControlName="password"
        type="password"
       class="form-control"
       placeholder="Password..."

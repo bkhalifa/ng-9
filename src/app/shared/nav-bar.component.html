@@ -37,23 +37,22 @@
 
 
     <div class="navbar-header navbar-right">
-      <ul class="nav navbar-nav">
-        <li>
-          <a *ngIf="!currentUser" [routerLink]="['user/profile']">Login</a>
-          <a *ngIf="isAuthentificate()" [routerLink]="['user/profile']">
-            <li class="nav-item dropdown" *ngIf="isAuthentificate()">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Welcome {{currentUser.firstName}} </a>
-              </a>
-              <a class="dropdown-item" (click)="logOut()" *ngIf="isAuthentificate()"> Logout</a>
 
-            </li>
+      <ul class="navbar-nav mr-auto">
 
-        <li>
-          &nbsp;
-      <app-basket></app-basket>
+        <li class="nav-item dropdown">
+          <a *ngIf="!currentUser" [routerLink]="['user/login']">Login</a>
+            <a *ngIf="isAuthentificate()" [routerLink]="['user/login']" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Welcome {{currentUser.firstName}} </a>
+
+          <div *ngIf="isAuthentificate()" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" *ngIf="currentUser.role ==='admin'">Manage</a>
+            <a class="dropdown-item"(click)="logOut()">Logout</a>
+          </div>
+
         </li>
+
       </ul>
     </div>
   </div>

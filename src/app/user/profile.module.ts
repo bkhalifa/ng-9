@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
 import { userRoute } from './user.router';
-import { FormsModule} from '@angular/forms'
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms'
+
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileSevice } from './profile.service';
+import { ManageComponent } from './manage/manage.component';
+
 
 
 @NgModule({
   imports:[
      CommonModule,
      FormsModule,
+     ReactiveFormsModule,
      HttpClientModule,
      RouterModule.forChild(userRoute),
   ],
-  declarations:[ProfileComponent,
+  declarations:[ProfileComponent, ManageComponent,
   ],
   exports:[],
   providers:[]

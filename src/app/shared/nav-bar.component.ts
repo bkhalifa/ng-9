@@ -7,6 +7,7 @@ import { ProductService } from '../core/product.service';
 import { JQ_TOKEN } from './jquery.service';
 import { IUser } from '../user/user.model';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'nav-bar',
@@ -23,51 +24,57 @@ import { Subscription } from 'rxjs';
 export class NavBarComponent implements OnInit, OnDestroy {
 
   constructor(public profileService: ProfileSevice,
-              private productService :ProductService,
-               @Inject(JQ_TOKEN)private $ :any) { }
+    private productService: ProductService,
+    private router: Router,
+    @Inject(JQ_TOKEN) private $: any) { }
 
 
-    text="mathing produits"
-    searchTerm: string = ""
-    foundProducts : Product[] =[]
-    sub :Subscription
-   currentUser :IUser
+  text = "mathing produits"
+  searchTerm: string = ""
+  foundProducts: Product[] = []
+  sub: Subscription
+  currentUser: IUser
 
 
 
   ngOnInit(): void {
-this.sub = this.profileService.currentUser$.subscribe(
-  u => this.currentUser = u
-)
+    this.sub = this.profileService.currentUser$.subscribe(
+      u => this.currentUser = u
+    )
 
   }
   @ViewChild('searchText') inputSearch: ElementRef;
 
 
 
-  searchData(searchTerm:string){
-  this.foundProducts =  this.productService.searchData(searchTerm)
+  searchData(searchTerm: string) {
+    this.foundProducts = this.productService.searchData(searchTerm)
     //  console.log(this.foundProducts)
   }
-  onSearch(){
+  onSearch() {
     this.$('#simple-modal').modal({})
   }
 
 
 
-  isAuthentificate(){
-    if(this.currentUser)
-       return true
-     return false
+  isAuthentificate() {
+    if (this.currentUser)
+      return true
+    return false
   }
 
-  logOut(){
+  logOut() {
     this.profileService.logout();
     this.profileService.currentUser$.subscribe(
-     user => this.currentUser = user
+      user => this.currentUser = user
     )
+    this.router.navigate(['/'])
   }
   ngOnDestroy(): void {
     this.sub.unsubscribe()
-   }
+  }
+
+  manage() {
+
+  }
 }

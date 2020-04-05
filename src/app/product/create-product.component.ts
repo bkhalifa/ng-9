@@ -28,10 +28,14 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.modelName = new FormControl('')
-    this.modelNumber = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z].*')])
-    this.imageModel = new FormControl('', Validators.required)
-    this.unitCost = new FormControl('', [Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
-    this.description = new FormControl('', Validators.required)
+    this.modelNumber = new FormControl('',
+    [Validators.required, Validators.pattern('[a-zA-Z].*')])
+    this.imageModel = new FormControl('',
+    Validators.required)
+    this.unitCost = new FormControl('',
+    [Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+    this.description = new FormControl('',
+    Validators.required)
 
     this.prodcutForm = new FormGroup({
       modelName: this.modelName,
