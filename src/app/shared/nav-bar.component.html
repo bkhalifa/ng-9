@@ -47,7 +47,7 @@
             Welcome {{currentUser.firstName}} </a>
 
           <div *ngIf="isAuthentificate()" class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" *ngIf="currentUser.role ==='admin'">Manage</a>
+            <a class="dropdown-item"  [routerLink]="['user/manage']" *ngIf="currentUser.role ==='admin'">Manage</a>
             <a class="dropdown-item"(click)="logOut()">Logout</a>
           </div>
 

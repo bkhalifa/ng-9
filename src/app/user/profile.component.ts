@@ -3,8 +3,6 @@ import { ProfileSevice } from './profile.service';
 import { IUser } from './user.model';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { pipe } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { Toastr, TOASTR_TOKEN } from '../shared/toastr.service';
 
 @Component({
@@ -53,7 +51,9 @@ get f(){ return this.loginForm.controls ;}
       userName:this.userName,
       password:this.password
     })
-
+this.profileSvc.currentUser$.subscribe(
+  user=>this.user = user
+)
 
   }
 }

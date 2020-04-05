@@ -1,8 +1,7 @@
 
-<h1>Login</h1>
-<hr>
+
 <div class="col-md-4">
-  <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+  <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" *ngIf="!user">
     <div class="form-group" >
       <label for="userName">User Name:</label>
       <em *ngIf="loginForm.controls.userName?.invalid &&
