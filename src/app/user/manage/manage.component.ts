@@ -15,7 +15,7 @@ export class ManageComponent implements OnInit {
   constructor(private profileService:ProfileSevice,private route :ActivatedRoute) { }
 
 
-   users :IUser[] | TrackError
+   users :IUser[]
 
   ngOnInit(): void {
   let resolveUsers = this.route.snapshot.data['resolveUsers']
