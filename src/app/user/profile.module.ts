@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 import { HttpClientModule } from '@angular/common/http';
 import { ManageComponent } from './manage/manage.component';
+import { UserResolverService } from '../core/resolver-user.service';
+
 
 
 
@@ -21,7 +23,9 @@ import { ManageComponent } from './manage/manage.component';
   declarations:[ProfileComponent, ManageComponent,
   ],
   exports:[],
-  providers:[]
+  providers:[
+    UserResolverService
+  ]
 })
 export class ProfileModule{
 constructor(){}

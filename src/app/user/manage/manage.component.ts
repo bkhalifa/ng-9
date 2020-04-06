@@ -3,28 +3,31 @@ import { Subscription } from 'rxjs';
 import { ProfileSevice } from '../profile.service';
 import { IUser } from '../user.model';
 import { TrackError } from 'src/app/core/track-error';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.css']
 })
-export class ManageComponent implements OnInit , OnDestroy{
+export class ManageComponent implements OnInit {
 
-  constructor(private profileService:ProfileSevice) { }
+  constructor(private profileService:ProfileSevice,private route :ActivatedRoute) { }
 
-   sub :Subscription
+
    users :IUser[] | TrackError
 
   ngOnInit(): void {
-    this.sub = this.profileService.getAllUsers()
-    .subscribe(
-      u => this.users = u
-    )
+  let resolveUsers = this.route.snapshot.data['resolveUsers']
+  if(resolveUsers instanceof TrackError){
+    console.log(`manage user component ${resolveUsers.message}`)
+  }else{
+    this.users = resolveUsers
+  }
   }
 
 
   ngOnDestroy(): void {
-   this.sub.unsubscribe()
+
   }
 }
