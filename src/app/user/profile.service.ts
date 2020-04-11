@@ -13,6 +13,7 @@ import { TrackError } from '../core/track-error';
 export class ProfileSevice {
 
 private profileUrl :string = 'http://localhost:8081/api';
+private profileLocalUrl :string = 'http://localhost:8656/api';
 
 public currentUser:IUser
 users :IUser[]
@@ -26,12 +27,17 @@ notifyUsers(users:IUser[]){
   this.userSSubject.next(users)
 }
 
+
+
 constructor(private http :HttpClient, @Inject(TOASTR_TOKEN) private toastr :Toastr,private router:Router ){
+
   this.currentUserSubject = new BehaviorSubject<IUser>(JSON.parse(localStorage.getItem('currentUser')));
   this.currentUser$ = this.currentUserSubject.asObservable();
 
   this.userSSubject = new BehaviorSubject<IUser[]>(null)
   this.users$ = this.userSSubject.asObservable();
+
+
 }
 onChangeUser(currentUser :IUser){
   this.currentUserSubject.next(currentUser);
@@ -45,8 +51,8 @@ let model={
   Password:password
 }
 
-const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-const options = { headers: headers };
+let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+let options = { headers: headers };
  return this.http.post<any>(`${this.profileUrl}/profile/login`,
                            JSON.stringify(model),options)
                            .pipe(
@@ -86,6 +92,11 @@ isAuhtenticated(){
   return !! this.currentUser
 }
 
+updateUser(user: IUser){
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  const options = { headers: headers };
+   return this.http.post<IUser>(`${this.profileUrl}/profile/updateuser`,JSON.stringify(user),options)
+}
 
 private handleError(error:HttpErrorResponse):Observable<TrackError> {
   let dataError = new TrackError();

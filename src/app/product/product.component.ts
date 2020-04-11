@@ -5,9 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { JQ_TOKEN } from '../shared/jquery.service';
 
 
-
-
-
 @Component({
   selector: 'product',
   templateUrl: './product.component.html',

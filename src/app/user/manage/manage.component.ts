@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ProfileSevice } from '../profile.service';
 import { IUser } from '../user.model';
 import { TrackError } from 'src/app/core/track-error';
@@ -7,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-manage',
-  templateUrl: './manage.component.html',
+  templateUrl: './manage-users.component.html',
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {

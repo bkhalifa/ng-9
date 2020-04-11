@@ -1,0 +1,63 @@
+<form  [formGroup]="userForm"
+
+(ngSubmit)="onSubmit(userForm.value)" *ngIf="!!userDetail"  autocomplete="off">
+
+  <div class="fgroup">
+
+    <label for="usr">First Name:</label> &nbsp;
+    <em *ngIf="f.userFirstName?.invalid &&
+              f.userFirstName.touched" >name is required
+   </em>
+
+    <input type="text"
+    class="form-control"
+    formControlName="userFirstName"
+    name ="userFirstName"
+    [(ngModel)]="userDetail.firstName" #fmane
+    required />
+  </div>
+  <div class="fgroup">
+    <label for="">Last Name: </label>
+ <em *ngIf="f.userLastName?.invalid &&
+            f.userLastName.touched"> user last name is required
+          </em>
+    <input type="text"
+    class="form-control"
+    formControlName="userLastName"
+    [(ngModel)]="userDetail.lastName"
+    required/>
+  </div>
+
+
+
+  <div class="fgroup">
+    <label for="">login Name:</label>
+    <em *ngIf="f.userName?.invalid &&  f.userName.touched"> required</em>
+    <em *ngIf="f.userName.errors?.maxlength"> max length 5</em>
+    <input  type="text"
+    class="form-control"
+    formControlName="userName"
+    [(ngModel)]="userDetail.userName"
+    required
+    maxlength="6"
+    />
+  </div>
+
+  <div class="fgroup">
+   <select (change)="onRoleSelect($event)"
+    formControlName="userRole"
+    [(ngModel)]="selectedRole">
+     <option *ngFor="let r of roles"
+      [value]= r.value
+      [selected]="r.value === userDetail?.role" >{{r.name}} </option>
+  </select>
+
+  </div>
+  <div>
+
+      <button [disabled]="userForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+
+
+  </div>
+
+  </form>
