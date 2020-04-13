@@ -16,6 +16,7 @@ private profileUrl :string = 'http://localhost:8081/api';
 private profileLocalUrl :string = 'http://localhost:8656/api';
 
 public currentUser:IUser
+
 users :IUser[]
 private currentUserSubject: BehaviorSubject<IUser>;
 public currentUser$: Observable<IUser>;
