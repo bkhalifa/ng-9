@@ -33,6 +33,7 @@ export class AuthGuardService implements CanActivate, OnInit, OnDestroy{
       // Retain the attempted URL for redirection
       //this.profileService.redirectUrl = url;
       this.router.navigate(['user/login']);
+      this.profileService.logout()
        return false;
     }
 
