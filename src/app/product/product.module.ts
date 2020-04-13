@@ -16,7 +16,7 @@ import { CollapsibleComponent } from '../shared/collapsible.component';
 import { ProductDetailComponent } from '../shared/product-detail.component';
 import { DetailProductComponent } from '../shared/modal/detail-modal.component';
 import { TriggerDetailProductDirective } from '../shared/modal/trigger-detail.component';
-import { AuthGuard } from '../core/auth-guard';
+import {  AuthGuardService } from '../core/auth-guard';
 
 
 
@@ -52,7 +52,7 @@ import { AuthGuard } from '../core/auth-guard';
     ProductResolveService,
     CategoryService,
     CategoryResolverService,
-    AuthGuard
+    AuthGuardService
   ]
 })
 

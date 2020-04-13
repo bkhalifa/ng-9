@@ -14,20 +14,20 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoryComponent,
-    resolve:{categories:CategoryResolverService}
+    resolve:{categories: CategoryResolverService}
   },
   {
     path: 'products',
-    loadChildren: () => import('./product/product.module').then(m => m.PorductModule),
+    loadChildren:() => import('./product/product.module').then(m => m.PorductModule),
 
   },
   {
    path:'user',
-   loadChildren:()=> import('./user/profile.module').then(m=>m.ProfileModule)
+   loadChildren:() => import('./user/profile.module').then(m=>m.ProfileModule)
   },
   {
   path:'product',
-  loadChildren:()=>import('./product/product.module').then(m=>m.PorductModule)
+  loadChildren:() => import('./product/product.module').then(m=>m.PorductModule)
   }
 ];
 

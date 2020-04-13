@@ -20,9 +20,6 @@ import { ProductService } from './core/product.service';
 import { AccueilModule } from './accueil/accueil.module';
 import { NavCatgegoryComponent } from './shared/nav-catgegory/nav-catgegory.component';
 import { BasketComponent } from './basket/basket.component';
-import { AuthGuard } from './core/auth-guard';
-
-
 
 
 
