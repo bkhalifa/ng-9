@@ -9,9 +9,9 @@ import { kMaxLength } from 'buffer';
 
 
 @Component({
-  selector:'product-input-detail',
-  templateUrl:'./update-product.component.html',
-  styles:[`
+  selector: 'product-input-detail',
+  templateUrl: './update-product.component.html',
+  styles: [`
 em{color:red}
   input[type=text], select {
   width: 100%;
@@ -48,75 +48,74 @@ div {
 })
 export class ProductInputDetailComponent implements OnInit {
 
-  constructor(private profileService:ProfileSevice,
-              @Inject(TOASTR_TOKEN) private toastr:Toastr,
-               @Inject(JQ_TOKEN)private  $ :any)
-               {}
+  constructor(private profileService: ProfileSevice,
+    @Inject(TOASTR_TOKEN) private toastr: Toastr,
+    @Inject(JQ_TOKEN) private $: any) { }
 
 
-  @Input() userDetail :IUser | null
-   user:IUser
+  @Input() userDetail: IUser | null
+  user: IUser
   userForm: FormGroup
 
-  get f() {return this.userForm.controls}
+  get f() { return this.userForm.controls }
 
-  userFirstName:FormControl
-  userLastName : FormControl
+  userFirstName: FormControl
+  userLastName: FormControl
   userName: FormControl
   userRole: FormControl
- private _selectedRole :string = "admin"
- get  selectedRole():string{
-   return this._selectedRole
- }
-set selectedRole(value:string){
-  this._selectedRole = value
-}
+  private _selectedRole: string = "admin"
+  get selectedRole(): string {
+    return this._selectedRole
+  }
+  set selectedRole(value: string) {
+    this._selectedRole = value
+  }
 
-onRoleSelect(op){
-   this.selectedRole = op.target.value
-   this.userDetail.role = this.selectedRole
+  onRoleSelect(op) {
+    this.selectedRole = op.target.value
+    this.userDetail.role = this.selectedRole
   }
 
   ngOnInit(): void {
-   this.userFirstName = new FormControl('',Validators.required)
-   this.userLastName  = new FormControl('',Validators.required)
-   this.userName =  new FormControl('',[Validators.required, Validators.maxLength(6)]),
-   this.userRole =  new FormControl(this.selectedRole, Validators.required)
+    this.userFirstName = new FormControl('', Validators.required)
+    this.userLastName = new FormControl('', Validators.required)
+    this.userName = new FormControl('', [Validators.required, Validators.maxLength(6)]),
+    this.userRole = new FormControl(this.selectedRole, Validators.required)
 
     this.userForm = new FormGroup({
-      userFirstName : this.userFirstName,
-      userLastName : this.userLastName,
-      userName :this.userName,
-      userRole :this.userRole
-     });
-}
-  onSubmit(userForm){
-  let  user :IUser= {
-    id : this.userDetail.id,
-    firstName : userForm.userFirstName,
-    lastName : userForm.userLastName,
-    userName : userForm.userName,
-    role : this.selectedRole
+      userFirstName: this.userFirstName,
+      userLastName: this.userLastName,
+      userName: this.userName,
+      userRole: this.userRole
+    });
   }
+  onSubmit(userForm) {
+    let user: IUser = {
+      id: this.userDetail.id,
+      firstName: userForm.userFirstName,
+      lastName: userForm.userLastName,
+      userName: userForm.userName,
+      role: this.selectedRole
+    }
 
-  this.profileService.updateUser(user).subscribe(
-      (data)=>{
-      if(data){
-        this.toastr.success("update done !","user")
-        console.log(this.selectedRole)
-        this.$('#detail-user').modal('toggle')
-       }else{
-        this.toastr.error("error  !","user")
-       }
+    this.profileService.updateUser(user).subscribe(
+      (data) => {
+        if (data) {
+          this.toastr.success("update done !", "user")
+          console.log(this.selectedRole)
+          this.$('#detail-user').modal('toggle')
+        } else {
+          this.toastr.error("error  !", "user")
+        }
       }
 
-  )
+    )
   }
 
   roles = [
-    {value:"admin", name:"administrateur" },
-    {value:"user" ,name:"utilisateur"}
-    ]
+    { value: "admin", name: "administrateur" },
+    { value: "user", name: "utilisateur" }
+  ]
 }
 
 

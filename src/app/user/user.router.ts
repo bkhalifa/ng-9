@@ -12,7 +12,6 @@ export const userRoute :Routes =[
 {
   path:'manage',
   component:ManageComponent,
-  resolve:{resolveUsers:UserResolverService
-  }
+  resolve:{resolveUsers:UserResolverService }
 }
 ]

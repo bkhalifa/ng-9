@@ -88,8 +88,8 @@ getAllUsers():Observable<IUser[] | TrackError>{
   )
 }
 
-isAuhtenticated(){
-  return !! this.currentUser
+isLoggedIn(): boolean {
+  return !!this.currentUser;
 }
 
 updateUser(user: IUser){
