@@ -12,17 +12,17 @@ export class AuthGuardService implements CanActivate, OnInit, OnDestroy{
   currentUser :IUser
   constructor(private router:Router, private profileService:ProfileSevice){}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
 
   canActivate(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {
     this.sub = this.profileService.currentUser$.subscribe(
       u => this.currentUser = u,
     )
+
     return this.checkLoggedIn(state.url, this.currentUser);
   }
+
 
   checkLoggedIn(url: string, user:IUser): boolean {
 
@@ -32,7 +32,7 @@ export class AuthGuardService implements CanActivate, OnInit, OnDestroy{
     else {
       // Retain the attempted URL for redirection
       //this.profileService.redirectUrl = url;
-      this.router.navigate(['user/login']);
+      this.router.navigate([url]);
       this.profileService.logout()
        return false;
     }

@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class SharedService {
 
-  private message = new BehaviorSubject('First Message');
-  sharedMessage = this.message.asObservable();
+  url :string;
 
-  constructor() { }
+  private message :BehaviorSubject<string>;
+  sharedMessage  :Observable<string>
+
+  constructor() {
+    this.message = new BehaviorSubject<string> ('First Message');
+    this.sharedMessage = this.message.asObservable();
+   }
 
   nextMessage(message: string) {
     this.message.next(message)

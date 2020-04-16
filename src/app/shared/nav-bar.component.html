@@ -35,27 +35,16 @@
     </form>
 
 
+<div class="navbar-header navbar-right">
 
-    <div class="navbar-header navbar-right">
+  <ul class="navbar-nav mr-auto">
 
-      <ul class="navbar-nav mr-auto">
-
-        <li class="nav-item dropdown">
-          <a *ngIf="!currentUser" [routerLink]="['user/login']">Login</a>
-            <a *ngIf="isAuthentificate()" [routerLink]="['user/login']" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Welcome {{currentUser.firstName}} </a>
-
-          <div *ngIf="isAuthentificate()" class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item"  [routerLink]="['user/manage']" *ngIf="currentUser.role ==='admin'">Manage</a>
-            <a class="dropdown-item"(click)="logOut()">Logout</a>
-          </div>
-
-        </li>
-
-      </ul>
-    </div>
-  </div>
+    <li class="nav-item dropdown">
+      <nav-auth [currentUser]='currentUser' > </nav-auth>
+    </li>
+  </ul>
+</div>
+</div>
 </nav>
 
 <simple-modal elementId="searchResults" title="text">

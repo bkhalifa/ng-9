@@ -15,7 +15,8 @@ export class ProfileSevice {
 private profileUrl :string = 'http://localhost:8081/api';
 private profileLocalUrl :string = 'http://localhost:8656/api';
 
-public currentUser:IUser
+public currentUser: IUser = null
+
 
 users :IUser[]
 private currentUserSubject: BehaviorSubject<IUser>;
@@ -38,7 +39,6 @@ constructor(private http :HttpClient, @Inject(TOASTR_TOKEN) private toastr :Toas
   this.userSSubject = new BehaviorSubject<IUser[]>(null)
   this.users$ = this.userSSubject.asObservable();
 
-
 }
 onChangeUser(currentUser :IUser){
   this.currentUserSubject.next(currentUser);
@@ -56,9 +56,7 @@ let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 let options = { headers: headers };
  return this.http.post<any>(`${this.profileUrl}/profile/login`,
                            JSON.stringify(model),options)
-                           .pipe(
-                             map(user=>
-                           {
+                           .pipe( map(user=> {
                              // store user details and jwt token in local storage to keep user logged in between page refreshes
                              localStorage.setItem('currentUser', JSON.stringify(user));
                              this.currentUser = user
@@ -90,8 +88,12 @@ getAllUsers():Observable<IUser[] | TrackError>{
 }
 
 isLoggedIn(): boolean {
+  let cuUsser = this.currentUser;
+
   return !!this.currentUser;
 }
+
+
 
 updateUser(user: IUser){
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

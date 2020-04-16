@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterStateSnapshot } from '@angular/router';
 import { userRoute } from './user.router';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms'
 
@@ -12,9 +12,7 @@ import { ManageUsersComponent } from './manage/manage-users.component';
 import { UserDetailComponent } from './manage/modal-detail-user.component';
 import { UserDetailTrigger } from './manage/trigger-detail-user.directive';
 import { ProductInputDetailComponent } from 'src/app/user/manage/update-product.component';
-
-
-
+import { AddProductComponent } from './manage/add-product/add-product.component';
 
 
 @NgModule({
@@ -30,7 +28,8 @@ import { ProductInputDetailComponent } from 'src/app/user/manage/update-product.
                 ManageUsersComponent,
                 UserDetailComponent,
                 UserDetailTrigger,
-                ProductInputDetailComponent
+                ProductInputDetailComponent,
+                AddProductComponent
   ],
   exports:[],
   providers:[

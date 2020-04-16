@@ -20,6 +20,7 @@ import { ProductService } from './core/product.service';
 import { AccueilModule } from './accueil/accueil.module';
 import { NavCatgegoryComponent } from './shared/nav-catgegory/nav-catgegory.component';
 import { BasketComponent } from './basket/basket.component';
+import { NavAuthComponent } from './shared/nav-auth/nav-auth.component';
 
 
 
@@ -42,7 +43,8 @@ let jquery = window['$']
     SimpleModalComponent,
     ModalTriggerComponent,
     NavCatgegoryComponent,
-    BasketComponent
+    BasketComponent,
+    NavAuthComponent
 
   ],
   providers: [

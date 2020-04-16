@@ -21,7 +21,8 @@ import { Router } from '@angular/router';
   li > a.active {color: #F97924}
   `]
 })
-export class NavBarComponent implements OnInit, OnDestroy {
+export class NavBarComponent implements OnInit {
+
 
   constructor(public profileService: ProfileSevice,
     private productService: ProductService,
@@ -32,8 +33,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
   text = "mathing produits"
   searchTerm: string = ""
   foundProducts: Product[] = []
-  sub: Subscription
   currentUser: IUser
+  sub: Subscription
 
 
 
@@ -57,19 +58,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
 
 
-  isAuthentificate() {
-    if (this.currentUser)
-      return true
-    return false
-  }
-
-  logOut() {
-    this.profileService.logout();
-    this.profileService.currentUser$.subscribe(
-      user => this.currentUser = user
-    )
-    this.router.navigate(['/'])
-  }
   ngOnDestroy(): void {
     this.sub.unsubscribe()
   }

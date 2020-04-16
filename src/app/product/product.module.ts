@@ -23,6 +23,7 @@ import {  AuthGuardService } from '../core/auth-guard';
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +41,6 @@ import {  AuthGuardService } from '../core/auth-guard';
     ProductDetailComponent,
     DetailProductComponent,
     TriggerDetailProductDirective
-
   ],
 
   exports: [
@@ -51,8 +51,7 @@ import {  AuthGuardService } from '../core/auth-guard';
 
     ProductResolveService,
     CategoryService,
-    CategoryResolverService,
-    AuthGuardService
+    CategoryResolverService
   ]
 })
 

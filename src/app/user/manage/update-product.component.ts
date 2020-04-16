@@ -64,6 +64,7 @@ export class ProductInputDetailComponent implements OnInit {
   userName: FormControl
   userRole: FormControl
   private _selectedRole: string = "admin"
+
   get selectedRole(): string {
     return this._selectedRole
   }
