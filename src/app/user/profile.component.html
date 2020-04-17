@@ -1,68 +1,32 @@
-
 <div class="col-md-4">
 
   <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" *ngIf="!user">
-    <div class="form-group" >
+    <div class="form-group">
       <label for="userName">User Name:</label>
       <em *ngIf="loginForm.controls?.userName?.invalid &&
       ( loginForm.controls?.userName?.touched || mouseaction)">required</em>
-      <input id="userName"  formControlName="userName" type="text"
-       class="form-control"
-       placeholder="User Name..."
-       required />
+      <input id="userName" formControlName="userName" type="text" class="form-control" placeholder="User Name..."
+        required />
     </div>
-    <div class="form-group" >
+    <div class="form-group">
       <label for="password">Password:</label>
       <em *ngIf="loginForm.controls?.password?.invalid &&
       (loginForm.controls?.password?.touched || mouseaction)">required</em>
-      <input id="password"  formControlName="password"
-       type="password"
-      class="form-control"
-      placeholder="Password..."
-      required />
+      <input id="password" formControlName="password" type="password" class="form-control" placeholder="Password..."
+        required />
     </div>
 
-<span (mouseenter)="mouseaction=true" (mouseleave)="mouseaction=false">
-  <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
-</span>
+    <span (mouseenter)="mouseaction=true" (mouseleave)="mouseaction=false">
+      <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+    </span>
 
-     &nbsp;
-    <button type="button"  class="btn btn-secondary">Cancel</button>
+    &nbsp;
+    <button type="button" class="btn btn-secondary">Cancel</button>
   </form>
 
+  <div *ngIf="user">
+    <edit-profile [user]="user"></edit-profile>
+  </div>
 
-  <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)"
-   *ngIf="user">
-    <h4 [ngClass]="{'name':user?.firstName!= null}"> Welcome
-    <span >{{user.firstName}} </span>
-      <br/> Edit your profile</h4>
-    <div class="form-group" >
-      <label for="userName">User Name:</label>
-      <!-- <em >required </em> -->
-      <input id="userName"  formControlName="userName" type="text"
-      [(ngModel)]="user.userName"
-       class="form-control"
-       placeholder="User Name..."
-       required />
-    </div>
-    <div class="form-group" >
-      <label for="password">Password:</label>
-      <em *ngIf="loginForm.controls.password?.invalid &&
-      (loginForm.controls.password.touched || mouseaction)">required</em>
-      <input id="password"  formControlName="password"
-       type="password"
-      class="form-control"
-      placeholder="Password..."
-      required />
-    </div>
-
-<span (mouseenter)="mouseaction=true" (mouseleave)="mouseaction=false">
-  <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
-</span>
-
-     &nbsp;
-    <button type="button"  class="btn btn-secondary">Cancel</button>
-  </form>
 
 </div>
-

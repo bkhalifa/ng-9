@@ -33,20 +33,15 @@ get f(){ return this.loginForm.controls ;}
     (err:any) => console.log(err),
    ()=>{
 
-    let isAdmin = new Role(this.user).isAdmin;
-// if(isAdmin){
-//  return this.router.navigate(['user/profile'])
-// }
-
      switch(this.user?.role){
-
-
        case "admin" :
+        return  this.router.navigate(['user/manage'])
 
-              case "user":
-            return  this.toastr.success(`${this.user.firstName} success login`,'login')
-              default :
-            return  this.router.navigate(['user/login'])
+        case "user":
+        return  this.toastr.success(`${this.user.firstName} success login`,'login')
+
+       default :
+        return  this.router.navigate(['user/login'])
 
      }
       // if(this.user?.isAdmin()){

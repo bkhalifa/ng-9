@@ -8,9 +8,12 @@ import {  map, tap, catchError } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { TrackError } from '../core/track-error';
+import { UpdateProfile } from './profile.model';
 
 @Injectable()
 export class ProfileSevice {
+   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+   options = { headers: this.headers };
 
 private profileUrl :string = 'http://localhost:8081/api';
 private profileLocalUrl :string = 'http://localhost:8656/api';
@@ -93,12 +96,19 @@ isLoggedIn(): boolean {
   return !!this.currentUser;
 }
 
+/// update profile
+updateProfile(UpProfile){
+  return this.http.post<any>(`${this.profileUrl}/profile/updatprofile`,
+  JSON.stringify(UpProfile),
+  this.options)
 
+}
 
 updateUser(user: IUser){
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  const options = { headers: headers };
-   return this.http.post<IUser>(`${this.profileUrl}/profile/updateuser`,JSON.stringify(user),options)
+
+   return this.http.post<IUser>(`${this.profileUrl}/profile/updateuser`,
+   JSON.stringify(user),
+   this.options)
 }
 
 private handleError(error:HttpErrorResponse):Observable<TrackError> {

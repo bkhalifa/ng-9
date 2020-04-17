@@ -13,6 +13,8 @@ import { UserDetailComponent } from './manage/modal-detail-user.component';
 import { UserDetailTrigger } from './manage/trigger-detail-user.directive';
 import { ProductInputDetailComponent } from 'src/app/user/manage/update-product.component';
 import { AddProductComponent } from './manage/add-product/add-product.component';
+import { EditProfileComponent } from './manage/edit-profile.component';
+
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { AddProductComponent } from './manage/add-product/add-product.component'
                 UserDetailComponent,
                 UserDetailTrigger,
                 ProductInputDetailComponent,
-                AddProductComponent
+                AddProductComponent,
+                EditProfileComponent
   ],
   exports:[],
   providers:[
