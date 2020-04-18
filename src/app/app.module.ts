@@ -23,8 +23,6 @@ import { BasketComponent } from './basket/basket.component';
 import { NavAuthComponent } from './shared/nav-auth/nav-auth.component';
 
 
-
-
 declare let toastr: Toastr
 let jquery = window['$']
 
@@ -45,6 +43,7 @@ let jquery = window['$']
     NavCatgegoryComponent,
     BasketComponent,
     NavAuthComponent
+
 
   ],
   providers: [

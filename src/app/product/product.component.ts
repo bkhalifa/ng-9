@@ -38,8 +38,6 @@ export class ProductComponent implements OnInit, OnDestroy {
               @Inject(JQ_TOKEN) private $: any) { }
 
 
-
-
   ngOnInit(): void {
     this.sub = this.profileService.currentUser$.subscribe(
     user => this.currentUser = user,

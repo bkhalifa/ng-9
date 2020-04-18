@@ -14,7 +14,8 @@ import { UserDetailTrigger } from './manage/trigger-detail-user.directive';
 import { ProductInputDetailComponent } from 'src/app/user/manage/update-product.component';
 import { AddProductComponent } from './manage/add-product/add-product.component';
 import { EditProfileComponent } from './manage/edit-profile.component';
-
+import { MProductsComponent } from './manage/m-products/m-products.component';
+import { JwPaginationComponent } from '../shared/JwPaginationComponent';
 
 
 @NgModule({
@@ -32,7 +33,10 @@ import { EditProfileComponent } from './manage/edit-profile.component';
                 UserDetailTrigger,
                 ProductInputDetailComponent,
                 AddProductComponent,
-                EditProfileComponent
+                EditProfileComponent,
+                MProductsComponent,
+                JwPaginationComponent
+
   ],
   exports:[],
   providers:[

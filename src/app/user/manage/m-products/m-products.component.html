@@ -1,0 +1,35 @@
+
+<div class="card text-center m-3">
+  <h3 class="card-header">Produts</h3>
+  <div class="card-body">
+    <table class="table table-hover table-dark">
+      <thead>
+        <th> Model </th>
+        <th> Name</th>
+        <th> Price</th>
+        <th> Description</th>
+        <th> image</th>
+        <th > <img src="assets/images/gear_wheel.png"/>&nbsp;</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of pageOfItems">
+          <td>{{item.modelNumber}}</td>
+          <td>{{item.modelName}}</td>
+          <td>{{item.unitCost}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.productImage}}</td>
+          <td>
+            <img src="assets/images/edit.png" alt="edit" />
+            |
+             <img src="assets/images/delete.png" alt="delete"/></td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+  <div class="card-footer pb-0 pt-3 pagination">
+      <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+  </div>
+</div>
