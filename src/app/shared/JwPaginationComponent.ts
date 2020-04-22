@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import * as paginate from 'jw-paginate';
+//  import * as paginate from 'jw-paginate';
+
+
+const  paginate = require('jw-paginate');
 
 @Component({
   selector: 'jw-pagination',
@@ -55,7 +58,7 @@ export class JwPaginationComponent implements OnInit, OnChanges {
     }
   }
 
-  private setPage(page: number) {
+   setPage(page: number) {
     // get new pager object for specified page
     this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages);
 
