@@ -16,6 +16,10 @@ import { AddProductComponent } from './manage/add-product/add-product.component'
 import { EditProfileComponent } from './manage/edit-profile.component';
 import { MProductsComponent } from './manage/m-products/m-products.component';
 import { JwPaginationComponent } from '../shared/JwPaginationComponent';
+import { TriggerProductDetailDirective } from './manage/m-products/m-trigger-directive';
+import { ModalMProductComponent } from './manage/m-products/m-modal-product.component';
+import { MCategoryListComponent } from './manage/add-product/category-list.component';
+
 
 
 @NgModule({
@@ -35,7 +39,11 @@ import { JwPaginationComponent } from '../shared/JwPaginationComponent';
                 AddProductComponent,
                 EditProfileComponent,
                 MProductsComponent,
-                JwPaginationComponent
+                JwPaginationComponent,
+                TriggerProductDetailDirective,
+                ModalMProductComponent,
+                MCategoryListComponent
+
 
   ],
   exports:[],

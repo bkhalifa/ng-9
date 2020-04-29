@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-//  import * as paginate from 'jw-paginate';
-
+import { ProductService } from '../core/product.service';
+import { SharedService } from './shared.service';
 
 const  paginate = require('jw-paginate');
 
@@ -36,6 +36,8 @@ const  paginate = require('jw-paginate');
 `]
 })
 export class JwPaginationComponent implements OnInit, OnChanges {
+
+  constructor(private prodcuctservice:ProductService,private sharedService:SharedService ){}
   @Input() items: Array<any>;
   @Output() changePage = new EventEmitter<any>(true);
   @Input() initialPage = 1;
@@ -47,25 +49,41 @@ export class JwPaginationComponent implements OnInit, OnChanges {
   ngOnInit() {
     // set page if items array isn't empty
     if (this.items && this.items.length) {
+      this.prodcuctservice.products = this.items;
+      // console.log(`jw paginatation ${JSON.stringify(this.prodcuctservice.products)}`)
       this.setPage(this.initialPage);
+
+
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     // reset page if items array has changed
     if (changes.items.currentValue !== changes.items.previousValue) {
+     console.log(changes.items.currentValue)
+     console.log(changes.items.previousValue)
+
       this.setPage(this.initialPage);
     }
   }
 
    setPage(page: number) {
+     this.sharedService.page$.subscribe(
+       (res) => {
+         if(res !=null){
+          page = res
+         }
+
+       }
+     )
     // get new pager object for specified page
     this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages);
 
     // get new page of items from items array
     var pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-
+    console.log(`jw paginatation set page `)
     // call change page function in parent component
     this.changePage.emit(pageOfItems);
+    this.sharedService.nextPage(null)
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Directive, Output, OnInit, ElementRef, Inject, Input, EventEmitter, ViewChild } from "@angular/core";
+import {Directive, OnInit, ElementRef, Inject, Input, EventEmitter, ViewChild } from "@angular/core";
 
 import { JQ_TOKEN } from '../jquery.service';
 

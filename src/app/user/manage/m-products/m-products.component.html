@@ -1,4 +1,4 @@
-<button class="btn btn-dark">New Products</button>
+<button class="btn btn-dark" tiggrer-m-product="addProduct">New Product</button>
 <div class="card text-center m-3">
   <h3 class="card-header">Manage Produts</h3>
 
@@ -10,27 +10,58 @@
         <th> Price</th>
         <th> Description</th>
         <th> image</th>
-        <th > <img src="assets/images/gear_wheel.png"/>&nbsp;</th>
+        <th> <img src="assets/images/gear_wheel.png"/>&nbsp;</th>
       </thead>
       <tbody>
-        <tr *ngFor="let item of pageOfItems">
+        <tr *ngFor="let item of pageOfItems ">
           <td>{{item.modelNumber}}</td>
           <td>{{item.modelName}}</td>
           <td>{{item.unitCost}}</td>
           <td>{{item.description}}</td>
-          <td>{{item.productImage}}</td>
+          <td><img [src]="item.productImage"/></td>
           <td>
-            <img src="assets/images/edit.png" alt="edit" />
-            |
-             <img src="assets/images/delete.png" alt="delete"/></td>
+         <span tiggrer-m-product="updateproduct">
+          <img src="assets/images/edit.png" alt="edit" />
+         </span>
+            |<img src="assets/images/delete.png"
+              (click)="trigerDelete(item.productId)"
+             alt="delete"/>
+            </td>
         </tr>
-
       </tbody>
-
     </table>
-
   </div>
   <div class="card-footer pb-0 pt-3 pagination">
       <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
   </div>
 </div>
+
+
+
+<modal-m-product elementId="addProduct" title ="new product">
+  <p>
+    <add-product></add-product>
+  </p>
+</modal-m-product>
+
+<modal-m-product   title ="updateproduct">
+  <p>
+    update product
+  </p>
+</modal-m-product>
+<modal-m-product  elementId="deleteProduct"  title ="delete Product">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <span> Are you sure to delete ?</span>
+
+       </p>
+    </div>
+    <div class="row">
+      <button (click)="deleteProduct()" class="btn btn-success">ok</button>
+      &nbsp;
+      <button class="btn btn-danger">no</button>
+      </div>
+
+</div>
+</modal-m-product>

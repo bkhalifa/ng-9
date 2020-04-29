@@ -8,10 +8,17 @@ import { Observable, of, Subject, throwError } from 'rxjs';
 export class ProductService {
   //  private productsUrl = 'api/products';
    private productsUrl = 'http://localhost:8081/api';
+   private productLocalUrl = 'http://localhost:8656/api';
+ // Http Headers
+ httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
 
    values:any;
    products: Product[];
-   selectdProducts :Product[] =null
+   selectdProducts :Product[] = null
 
    private productSource = new Subject<Product[]>();
    productSource$ = this.productSource.asObservable();
@@ -26,10 +33,10 @@ export class ProductService {
 
   GetProducts(): Observable<Product[]> {
 
-    if (this.products) {
-      this.changeProductSource(this.products)
-      return of(this.products);
-    }
+    // if (this.products) {
+    //      this.changeProductSource(this.products)
+    //   return of(this.products);
+    // }
 
     return this._http.get<Array<Product>>(`${this.productsUrl}/Product`)
       .pipe(
@@ -68,23 +75,33 @@ findProductsByCategoryID(categoryID:number){
     }
   }
 
+  addProduct(model:FormData, pr:Product){
+    this.products.push(pr)
+   return this._http.post<any>(`${this.productsUrl}/Product/postproduct`, model)
+   .pipe(
+
+    catchError(err=> this.handleError(err))
+   )
+ }
 
   getValues(){
     let model={
       Login:"admim",
       Password:"password"
     }
-
-    //  this.http.get<any>(`${this.profileUrl}/profile/all`)
-
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   const options = { headers: headers };
-  //  return  this._http.post<any>(`${this.productsUrl}/profile/login`,
-  //                              JSON.stringify(model),options)
-
    }
 
+  deleteProduct(productId: number):Observable<any> {
+    let model={
+      Id:productId
+    }
+    return this._http.post<any>(`${this.productsUrl}/Product/deleteproduct`,JSON.stringify(model),this.httpOptions)
+    .pipe(
 
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
 
   handleError(error) {
     let errorMessage = '';
