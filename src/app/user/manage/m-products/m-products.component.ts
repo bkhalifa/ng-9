@@ -5,7 +5,6 @@ import { ProductService } from 'src/app/core/product.service';
 import { JQ_TOKEN } from 'src/app/shared/jquery.service';
 import { TOASTR_TOKEN, Toastr } from 'src/app/shared/toastr.service';
 
-import { JwPaginationComponent } from 'src/app/shared/JwPaginationComponent';
 import { SharedService } from 'src/app/shared/shared.service';
 const paginate = require('jw-paginate');
 @Component({
@@ -23,6 +22,7 @@ export class MProductsComponent implements OnInit, OnDestroy {
   sub: Subscription;
   items: Array<any>;
   selectedProductID: number;
+  produtEmitted :Product
   // current page of items
   pageOfItems: Array<any>;
   constructor(private productService: ProductService,
@@ -85,4 +85,8 @@ export class MProductsComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
+  getProduct($event) {
+    this.produtEmitted = $event
+    this.pageOfItems.push($event);
+  }
 }

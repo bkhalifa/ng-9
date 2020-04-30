@@ -42,7 +42,7 @@
 
 <modal-m-product elementId="addProduct" title ="new product">
   <p>
-    <add-product></add-product>
+    <add-product (emitProduct)="getProduct($event)"></add-product>
   </p>
 </modal-m-product>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from 'src/app/core/product';
 import { ProductResolveService } from 'src/app/product/product-resolve.service';
@@ -30,7 +30,7 @@ export class AddProductComponent implements OnInit {
   unitCost: FormControl
   description: FormControl
   @ViewChild(MProductsComponent) productComponent: MProductsComponent
-  @ViewChild('JwPaginationComponent') jwPagination: JwPaginationComponent
+  @Output() emitProduct = new EventEmitter<Product>();
   get f() { return this.prodcutForm.controls; }
 
   ngOnInit(): void {
@@ -82,7 +82,8 @@ export class AddProductComponent implements OnInit {
 
          (ret)=>{
            if (ret > 0){
-          //  this.jwPagination.items.push(pr);
+
+             this.emitProduct.emit(pr);
              this.toastr.success("add porduct done !","prodcut");
              this.$('#addProduct').modal('hide');
 
