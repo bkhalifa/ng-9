@@ -32,7 +32,9 @@
     </table>
   </div>
   <div class="card-footer pb-0 pt-3 pagination">
-      <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+      <jw-pagination [items]="items"
+      (emitPage)="getPage($event)"
+      (changePage)="onChangePage($event)"></jw-pagination>
   </div>
 </div>
 

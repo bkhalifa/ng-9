@@ -29,8 +29,11 @@ export class MProductsComponent implements OnInit, OnDestroy {
     @Inject(JQ_TOKEN) private $: any,
     @Inject(TOASTR_TOKEN) private toastr: Toastr,
     private sharedService: SharedService) { }
+    private page: number;
 
-  @ViewChild('JwPaginationComponent') jwPagination: JwPaginationComponent
+  getPage($event) {
+    this.page = $event
+  }
 
   ngOnInit(): void {
 
@@ -49,10 +52,12 @@ export class MProductsComponent implements OnInit, OnDestroy {
     // update current page of items
     this.pageOfItems = pageOfItems;
   }
+
   trigerDelete(productId) {
     this.$('#deleteProduct').modal()
     this.selectedProductID = productId;
   }
+
   deleteProduct() {
     this.productService.deleteProduct(this.selectedProductID).subscribe(
       (ret) => {
@@ -61,18 +66,19 @@ export class MProductsComponent implements OnInit, OnDestroy {
           this.$('#deleteProduct').modal('hide');
 
           const index = this.pageOfItems.findIndex(p => p.productId == this.selectedProductID);
+          const intemIndex = this.items.findIndex(p => p.productId == this.selectedProductID);
           if (index > -1) {
             this.pageOfItems.splice(index, 1);
+            this.items.splice(intemIndex, 1);
           }
-          this.sharedService.nextPage(this.jwPagination.pager.currentPage)
+          this.productService.products = this.pageOfItems;
+          this.sharedService.nextPage(this.page)
         } else {
           this.toastr.error("delete not ok", "product");
           this.$('#deleteProduct').modal('hide')
         }
       }
     )
-
-
   }
 
   ngOnDestroy(): void {

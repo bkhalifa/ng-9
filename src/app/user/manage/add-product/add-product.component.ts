@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/core/product.service';
 import { JQ_TOKEN } from 'src/app/shared/jquery.service';
 import { Toastr, TOASTR_TOKEN } from 'src/app/shared/toastr.service';
 import { MProductsComponent } from '../m-products/m-products.component';
+import { JwPaginationComponent } from 'src/app/shared/JwPaginationComponent';
 
 @Component({
   selector: 'add-product',
@@ -29,7 +30,7 @@ export class AddProductComponent implements OnInit {
   unitCost: FormControl
   description: FormControl
   @ViewChild(MProductsComponent) productComponent: MProductsComponent
-
+  @ViewChild('JwPaginationComponent') jwPagination: JwPaginationComponent
   get f() { return this.prodcutForm.controls; }
 
   ngOnInit(): void {
@@ -81,6 +82,7 @@ export class AddProductComponent implements OnInit {
 
          (ret)=>{
            if (ret > 0){
+          //  this.jwPagination.items.push(pr);
              this.toastr.success("add porduct done !","prodcut");
              this.$('#addProduct').modal('hide');
 
