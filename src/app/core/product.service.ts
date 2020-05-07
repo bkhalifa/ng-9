@@ -33,16 +33,32 @@ export class ProductService {
 
   GetProducts(): Observable<Product[]> {
 
-    // if (this.products) {
-    //      this.changeProductSource(this.products)
-    //   return of(this.products);
-    // }
+    if (this.products) {
+         this.changeProductSource(this.products)
+      return of(this.products.sort((a,b)=>{
+        const name1 = a.modelNumber.toLowerCase();
+        const name2 = b.modelNumber.toLowerCase();
+        if (name1 > name2) { return 1; }
+        if (name1 < name2) { return -1; }
+        return 0;
+      }));
+    }
 
     return this._http.get<Array<Product>>(`${this.productsUrl}/Product`)
       .pipe(
-        tap(data => this.products = data),
+        tap(data => {
+          data.sort((a,b)=>{
+            const name1 = a.modelNumber.toLowerCase();
+            const name2 = b.modelNumber.toLowerCase();
+            if (name1 > name2) { return 1; }
+            if (name1 < name2) { return -1; }
+            return 0;
+          });
+            this.products = data
+
+        }),
         tap(data => this.changeProductSource(data)),
-        tap(err => console.log(err))
+        catchError(this.handleError)
       )
 
   }
@@ -57,7 +73,8 @@ findProductsByCategoryID(categoryID:number){
 
   searchProducts(searchElem) {
     if (!!searchElem && this.products) {
-      return products => products.filter(proj => proj.modelName.toLowerCase() === searchElem.toLocaleLowerCase())
+      return products => products
+             .filter(proj => proj.modelName.toLowerCase() === searchElem.toLocaleLowerCase())
     }
   }
 
@@ -76,7 +93,7 @@ findProductsByCategoryID(categoryID:number){
   }
 
   addProduct(model:FormData, pr:Product){
-    this.products.push(pr)
+
    return this._http.post<any>(`${this.productsUrl}/Product/postproduct`, model)
    .pipe(
 

@@ -1,30 +1,33 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from 'src/app/category/category.service';
 import { Category } from 'src/app/core/category';
-import { Subscription } from 'rxjs';
+import { Subscription, EMPTY } from 'rxjs';
 import { ProductService } from 'src/app/core/product.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'nav-catgegory',
   templateUrl: './nav-catgegory.component.html',
   styleUrls: ['./nav-catgegory.component.css']
 })
-export class NavCatgegoryComponent implements OnInit, OnDestroy {
-
+export class NavCatgegoryComponent   {
+  errorMessage=''
   categories: Category[]
-  sub: Subscription
+
   constructor(private categoryService: CategoryService,
               private prodcutService: ProductService) { }
 
-  ngOnInit(): void {
-    this.sub = this.categoryService.GetAllCategories().subscribe(
-      data => this.categories = data
-    )
-  }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe()
-  }
+
+categories$ = this.categoryService.categories$.pipe(
+  catchError(err=>{
+    this.errorMessage = err;
+  return EMPTY;
+  })
+)
+
+
+
 
   fetchProducts(id: number) {
      this.prodcutService.findProductsByCategoryID(id)

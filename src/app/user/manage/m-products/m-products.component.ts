@@ -36,10 +36,33 @@ export class MProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.productService.productSource$.subscribe(
+      res =>{
+        this.items = res
+        this.items.sort((a,b)=>{
+          const name1 = a.modelNumber.toLowerCase();
+          const name2 = b.modelNumber.toLowerCase();
+          if (name1 > name2) { return 1; }
+          if (name1 < name2) { return -1; }
+          return 0;
+        });
+      }
 
+    )
     this.sub = this.productService.GetProducts().subscribe(
       data => {
-        this.items = data
+        if(this.items?.length >=0){
+          this.items =null;
+          this.items=data
+          this.items.sort((a,b)=>{
+            const name1 = a.modelNumber.toLowerCase();
+            const name2 = b.modelNumber.toLowerCase();
+            if (name1 > name2) { return 1; }
+            if (name1 < name2) { return -1; }
+            return 0;
+          });
+        }
+
       },
       err => console.error(err),
       () => {
@@ -64,7 +87,6 @@ export class MProductsComponent implements OnInit, OnDestroy {
         if (!!ret) {
           this.toastr.success("delete done", "product");
           this.$('#deleteProduct').modal('hide');
-
           const index = this.pageOfItems.findIndex(p => p.productId == this.selectedProductID);
           const intemIndex = this.items.findIndex(p => p.productId == this.selectedProductID);
           if (index > -1) {
@@ -87,6 +109,18 @@ export class MProductsComponent implements OnInit, OnDestroy {
 
   getProduct($event) {
     this.produtEmitted = $event
-    this.pageOfItems.push($event);
+   // this.pageOfItems.unshift($event);
+    console.log(this.items.length);
+    this.items.unshift($event);
+    this.productService.changeProductSource(this.items)
+    console.log(this.items.length);
+    this.items.sort((a,b)=>{
+      const name1 = a.modelNumber.toLowerCase();
+      const name2 = b.modelNumber.toLowerCase();
+      if (name1 > name2) { return 1; }
+      if (name1 < name2) { return -1; }
+      return 0;
+    })
+
   }
 }

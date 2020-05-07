@@ -1,5 +1,5 @@
 
-<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="categories$ | async as categories">
   <a class="dropdown-item" *ngFor="let item of categories"
   (click)="fetchProducts(item.categoryId)">{{item.categoryName}}</a>
 </div>

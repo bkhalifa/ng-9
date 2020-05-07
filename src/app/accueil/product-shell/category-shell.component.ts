@@ -1,16 +1,17 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from "@angular/core";
 import { CategoryService } from 'src/app/category/category.service';
 import { Category } from 'src/app/core/category';
-import { Subscription } from 'rxjs';
+import { Subscription, EMPTY } from 'rxjs';
 import { ProductService } from 'src/app/core/product.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'category-shell',
   template: `
   <p> &nbsp; </p>
-  <ul>
+  <ul *ngIf="categories$ | async as categories ">
 <li class="cat"
-*ngFor="let category of categories"
+*ngFor="let category of categories  "
  (click)="refreshProduct(category.categoryId)">
   {{category.categoryName}}
 </li>
@@ -19,25 +20,30 @@ import { ProductService } from 'src/app/core/product.service';
   styles:[`
   .cat{cursor:pointer;font-family: 'Arial';color:#e5e5e5}
 
-  `]
+  `],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class CategoryShellComponent implements OnInit, OnDestroy {
-  categories: Category[]
-  sub: Subscription
+export class CategoryShellComponent {
+
+
   constructor(private categoryService: CategoryService,
               private producService:ProductService) { }
 
-  ngOnInit(): void {
-    this.sub = this.categoryService.GetAllCategories().subscribe(
-      data => this.categories = data
-    )
-  }
+
+ errorMessage:'';
+   categories$ = this.categoryService.categories$
+   .pipe
+   (
+     catchError(err=>{
+       this.errorMessage = err;
+       return EMPTY;
+     })
+   )
+
 
   refreshProduct(categoryId:number){
     this.producService.findProductsByCategoryID(categoryId)
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe()
-  }
+
 }

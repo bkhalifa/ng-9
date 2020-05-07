@@ -44,14 +44,7 @@ get f(){ return this.loginForm.controls ;}
         return  this.router.navigate(['user/login'])
 
      }
-      // if(this.user?.isAdmin()){
 
-      //    this.router.navigate([this.sharedService.url])
-      // }
-      // if(!this.user?.isAdmin()){
-      //   this.toastr.success(`${this.user.firstName} success login`,'login')
-
-      // }
     })
 
   }

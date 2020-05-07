@@ -1,6 +1,6 @@
 <h1> category</h1>
-<ul>
-  <li *ngFor="let c of this._categoryService.categories">{{c.categoryName}}</li>
+<ul *ngIf="categories$ | async as categories">
+  <li *ngFor="let c of categories">{{c.categoryName}}</li>
 </ul>
 
 

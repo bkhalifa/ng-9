@@ -1,31 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CategoryService } from './category.service';
+import { Category } from '../core/category';
+import { Observable, EMPTY } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Component({
   selector: 'category',
-  templateUrl: './category.component.html'
+  templateUrl: './category.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent   {
 
-  // public categories: Category[];
+errorMessage='';
+
 
   constructor(public _categoryService: CategoryService,
     private route: ActivatedRoute) { }
 
   message: string;
 
-  ngOnInit(): void {
-    //  this.categories = this.route.snapshot.data.categories;
-     this._categoryService
-      .GetAllCategories()
-      .subscribe(
-        res => this._categoryService.categories = res,
-        err => console.log(err.status)
-      );
+  categories$ = this._categoryService.categories$.pipe(
+    catchError(err=>{
+      this.errorMessage = err;
+    return EMPTY;
+    })
+  )
 
-  }
+
 
 }

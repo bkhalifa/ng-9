@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProfileSevice } from './user/profile.service';
-import { IUser } from './user/user.model';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-root',
@@ -11,18 +10,6 @@ import { Subscription } from 'rxjs';
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit  {
-  currentAppUser :IUser ;
-
-  constructor(private profileService:ProfileSevice){}
-
-  ngOnInit(){
-    this.profileService.currentUser$.subscribe(
-      user => this.currentAppUser  = user,
-      err => console.error(err),
-      ()=>{}
-    )
-  }
-}
+export class AppComponent    {}
 
 
