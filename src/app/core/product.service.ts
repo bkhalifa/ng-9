@@ -46,17 +46,23 @@ export class ProductService {
 
     return this._http.get<Array<Product>>(`${this.productsUrl}/Product`)
       .pipe(
-        tap(data => {
-          data.sort((a,b)=>{
-            const name1 = a.modelNumber.toLowerCase();
-            const name2 = b.modelNumber.toLowerCase();
-            if (name1 > name2) { return 1; }
-            if (name1 < name2) { return -1; }
-            return 0;
-          });
-            this.products = data
 
-        }),
+        // tap(data => {
+        //   data.sort((a,b)=>{
+        //     const name1 = a.modelNumber.toLowerCase();
+        //     const name2 = b.modelNumber.toLowerCase();
+        //     if (name1 > name2) { return 1; }
+        //     if (name1 < name2) { return -1; }
+        //     return 0;
+        //   });
+        //     this.products = data
+
+        // }),
+        tap(products => products.map(product =>({
+          ...product,
+          unitCost:product.unitCost * 1.5,
+          searchKey:[product.modelName]
+        }) as Product)),
         tap(data => this.changeProductSource(data)),
         catchError(this.handleError)
       )
@@ -132,6 +138,13 @@ findProductsByCategoryID(categoryID:number){
     console.log(errorMessage);
     return throwError(errorMessage);
 }
+
+//reactive rxjs
+productsRx$ = this._http.get<Array<Product>>(`${this.productsUrl}/Product`).pipe
+(
+  catchError(this.handleError)
+)
+
 }
 
 

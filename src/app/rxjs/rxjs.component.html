@@ -1,0 +1,24 @@
+<div class="card-body">
+  <table class="table table-hover table-dark">
+    <thead>
+      <th> Model </th>
+      <th> Name</th>
+      <th> Price</th>
+      <th> Description</th>
+      <th> category</th>
+      <th> image</th>
+      <th> <img src="assets/images/gear_wheel.png"/>&nbsp;</th>
+    </thead>
+    <tbody *ngIf="productsWithCategory$ | async as itemProducts">
+      <tr *ngFor="let item of itemProducts ">
+        <td>{{item.modelNumber}}</td>
+        <td>{{item.modelName}}</td>
+        <td>{{item.unitCost}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.productImage}}</td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

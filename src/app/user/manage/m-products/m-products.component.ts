@@ -35,6 +35,7 @@ export class MProductsComponent implements OnInit, OnDestroy {
     this.page = $event
   }
 
+
   ngOnInit(): void {
     this.productService.productSource$.subscribe(
       res =>{

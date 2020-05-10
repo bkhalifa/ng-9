@@ -21,6 +21,7 @@ import { AccueilModule } from './accueil/accueil.module';
 import { NavCatgegoryComponent } from './shared/nav-catgegory/nav-catgegory.component';
 import { BasketComponent } from './basket/basket.component';
 import { NavAuthComponent } from './shared/nav-auth/nav-auth.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 declare let toastr: Toastr
@@ -42,7 +43,8 @@ let jquery = window['$']
     ModalTriggerComponent,
     NavCatgegoryComponent,
     BasketComponent,
-    NavAuthComponent
+    NavAuthComponent,
+    RxjsComponent
 
 
   ],
