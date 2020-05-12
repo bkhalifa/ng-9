@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { Product } from 'src/app/core/product';
-import { Subscription, pipe } from 'rxjs';
+import { Subscription, pipe, empty, EMPTY, BehaviorSubject } from 'rxjs';
 import { ProductService } from 'src/app/core/product.service';
 import { JQ_TOKEN } from 'src/app/shared/jquery.service';
 import { TOASTR_TOKEN, Toastr } from 'src/app/shared/toastr.service';
 
 import { SharedService } from 'src/app/shared/shared.service';
+import { catchError } from 'rxjs/operators';
 const paginate = require('jw-paginate');
 @Component({
   selector: 'm-products',
@@ -22,7 +23,10 @@ export class MProductsComponent implements OnInit, OnDestroy {
   sub: Subscription;
   items: Array<any>;
   selectedProductID: number;
-  produtEmitted :Product
+  produtEmitted :Product;
+  errorMessage:'';
+private selectedCategorySubject = new BehaviorSubject<number>(0);
+selectedCategoryAction$ = this.selectedCategorySubject.asObservable();
   // current page of items
   pageOfItems: Array<any>;
   constructor(private productService: ProductService,
@@ -35,6 +39,12 @@ export class MProductsComponent implements OnInit, OnDestroy {
     this.page = $event
   }
 
+  categories$ = this.sharedService.categories$.pipe(
+    catchError(err=> {
+      this.errorMessage =err;
+      return EMPTY
+    })
+      )
 
   ngOnInit(): void {
     this.productService.productSource$.subscribe(
@@ -104,6 +114,8 @@ export class MProductsComponent implements OnInit, OnDestroy {
     )
   }
 
+
+
   ngOnDestroy(): void {
     this.sub.unsubscribe()
   }
@@ -123,5 +135,10 @@ export class MProductsComponent implements OnInit, OnDestroy {
       return 0;
     })
 
+  }
+
+
+  onSelected(categoryId) {
+    this.selectedCategorySubject.next(+categoryId);
   }
 }

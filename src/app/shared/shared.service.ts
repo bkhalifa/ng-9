@@ -45,6 +45,7 @@ export class SharedService {
         catchError(this.handleError)
       )
 
+//combine create a array of two  [products[], categories[]]
   productsWithCategory$ = combineLatest([
     this.products$,
     this.categories$,
