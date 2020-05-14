@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, combineLatest, Subject, merge } from 'rxjs';
 import { Product } from '../core/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map, scan } from 'rxjs/operators';
 import { Category } from '../core/category';
 
 @Injectable()
@@ -76,6 +76,35 @@ export class SharedService {
      return products.find(product => product.productId === selectedProductID);
     })
   )
+
+  //add product
+  private productInsertSubject = new Subject<Product>();
+  productInsertAction$ = this.productInsertSubject.asObservable();
+
+  AddProduct(newProduct? :Product){
+  newProduct = newProduct || this.fakePorduct();
+  this.productInsertSubject.next(newProduct);
+ }
+
+private fakePorduct(){
+  return {
+  productId : 1,
+  categoryId: 17,
+  description: "hello this is fake",
+  modelName: "fake model",
+  productImage: "fake image",
+  modelNumber: "fake model number",
+  unitCost: 12
+
+  }
+}
+  allProductsWithAdd$ = merge(
+    this.productsWithCategory$,
+    this.productInsertAction$,
+  ).pipe(
+    scan((acc :Product[], curr:Product) =>[...acc, curr]  )
+  )
+
 
 
   // products$ = this.http.get<Product[]>(`${this.productsUrl}/product`)

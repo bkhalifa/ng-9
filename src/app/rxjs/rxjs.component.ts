@@ -22,7 +22,7 @@ export class RxjsComponent {
   constructor(private sharedService: SharedService) { }
 
   products$ = combineLatest([
-    this.sharedService.productsWithCategory$,
+    this.sharedService.allProductsWithAdd$,
     this.categorySelectedAction$.pipe(
       startWith(0)
       ),
@@ -45,6 +45,10 @@ export class RxjsComponent {
       })
     )
 
+
+    addProduct(){
+      this.sharedService.AddProduct();
+    }
 
   onSelected(selectedCategoryId: number) {
     //emit a value to action stream

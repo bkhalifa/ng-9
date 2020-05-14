@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
 import { catchError } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
 
 @Component({
   selector: 'product-list-alt',
@@ -13,12 +13,15 @@ import { EMPTY } from 'rxjs';
 })
 
 export class ProductListAltComponent  {
-  errorMessage ='';
+  private errorMessageSubject = new Subject<string>();
+errorMessageAction$ = this.errorMessageSubject.asObservable();
   constructor(private sharedService:SharedService){}
+
+  selectProduct$ = this.sharedService.selectedProduct$;
 
   products$ = this.sharedService.productsWithCategory$.pipe(
     catchError(err=>{
-      this.errorMessage = err;
+      this.errorMessageSubject.next(err);
       return EMPTY;
     }),
 
