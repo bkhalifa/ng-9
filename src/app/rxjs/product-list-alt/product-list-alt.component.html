@@ -1,0 +1,14 @@
+&nbsp;
+<div class="row">
+  <div class="col-md-4">
+    <ul  class="list-group" *ngIf="products$ | async as products">
+      <li class="list-group-item" *ngFor="let product of products"
+          (click)='onSelected(product.productId)'>
+          <span class="under"> {{product.modelName}}  </span></li>
+    </ul>
+  </div>
+<div class="col-md-8">
+  <pl-product-detail></pl-product-detail>
+</div>
+</div>
+

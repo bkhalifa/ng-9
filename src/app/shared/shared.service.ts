@@ -23,7 +23,15 @@ export class SharedService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
+  };
+
+  //selected product
+  private selectedProductSubject = new BehaviorSubject<number>(391);
+  selectedProductAction$ = this.selectedProductSubject.asObservable();
+  selectedProductChange(productId:number){
+    this.selectedProductSubject.next(productId);
   }
+
   constructor(private http: HttpClient) {
     this.message = new BehaviorSubject<string>('First Message');
     this.sharedMessage = this.message.asObservable();
@@ -60,6 +68,16 @@ export class SharedService {
        )
   )
 
+  selectedProduct$ = combineLatest([
+    this.productsWithCategory$,
+    this.selectedProductAction$,
+  ]).pipe(
+    map(([products, selectedProductID]) =>{
+     return products.find(product => product.productId === selectedProductID);
+    })
+  )
+
+
   // products$ = this.http.get<Product[]>(`${this.productsUrl}/product`)
   //   .pipe(
   //     tap(products => products.map(product =>
@@ -72,6 +90,12 @@ export class SharedService {
   //     tap(products => console.log(products)),
   //     catchError(this.handleError)
   //   )
+
+
+  //select on click detail product
+
+
+
 
   nextPage(page: number) {
     this.page.next(page);

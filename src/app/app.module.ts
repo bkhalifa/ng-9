@@ -22,6 +22,9 @@ import { NavCatgegoryComponent } from './shared/nav-catgegory/nav-catgegory.comp
 import { BasketComponent } from './basket/basket.component';
 import { NavAuthComponent } from './shared/nav-auth/nav-auth.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProductDetailAltComponent } from './rxjs/product-list-alt/product-detail-alt.component';
+import { ProductListAltComponent } from './rxjs/product-list-alt/product-list-alt.component';
+
 
 
 declare let toastr: Toastr
@@ -44,8 +47,9 @@ let jquery = window['$']
     NavCatgegoryComponent,
     BasketComponent,
     NavAuthComponent,
-    RxjsComponent
-
+    RxjsComponent,
+    ProductListAltComponent,
+    ProductDetailAltComponent,
 
   ],
   providers: [

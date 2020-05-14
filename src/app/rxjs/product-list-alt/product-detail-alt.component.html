@@ -1,0 +1,17 @@
+<p>product detail</p>
+<div class="card"
+*ngIf ="product$  | async as product">
+
+  <div class="card-body">
+    <h5 class="card-title">{{product.modelName}}</h5>
+    <p class="card-text">
+      {{product.description}}
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"> {{product.modelNumber}}</li>
+    <li class="list-group-item"> {{product.unitCost}}</li>
+
+  </ul>
+
+</div>

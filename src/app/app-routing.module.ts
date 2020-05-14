@@ -6,6 +6,7 @@ import { CategoryResolverService } from './category/category-resolver.service';
 
 import { AcceuilComponent } from './accueil/Accueil.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProductListAltComponent } from './rxjs/product-list-alt/product-list-alt.component';
 
 
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   loadChildren:() => import('./product/product.module').then(m=>m.PorductModule)
   },
   { path: 'rxjs', component:RxjsComponent },
+  { path: 'product-list', component:ProductListAltComponent },
 ];
 
 @NgModule({
