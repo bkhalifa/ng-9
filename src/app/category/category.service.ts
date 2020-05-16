@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../core/category';
-import { of, Observable, throwError } from 'rxjs';
+import { of, Observable, throwError, BehaviorSubject } from 'rxjs';
 import {tap, catchError} from 'rxjs/operators'
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,6 +22,8 @@ export class CategoryService {
       )
 
   public searchText :string
+
+
 
   // GetAllCategories = () => {
 

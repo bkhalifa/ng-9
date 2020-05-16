@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from "@angular/core";
 import { CategoryService } from 'src/app/category/category.service';
 import { Category } from 'src/app/core/category';
-import { Subscription, empty } from 'rxjs';
+import { Subscription, empty, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,8 @@ import { catchError } from 'rxjs/operators';
   })
 export class MCategoryListComponent {
   constructor(private categoryService: CategoryService) { }
-  errorMessage:'';
+  errorMessageSubject = new Subject<string>();
+  errorMessage$ = this.errorMessageSubject.asObservable();
   categories: Category[];
 
 
@@ -23,7 +24,7 @@ export class MCategoryListComponent {
 
   categories$ = this.categoryService.categories$.pipe(
     catchError(err=>{
-      this.errorMessage=err;
+      this.errorMessageSubject.next(err);
       return empty;
     })
   )

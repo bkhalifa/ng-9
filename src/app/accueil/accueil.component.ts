@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
   template: `
@@ -12,11 +12,8 @@ import { Component, OnInit } from "@angular/core";
 </div>
 
 
- `
+ `,
+
+ changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class AcceuilComponent implements OnInit {
-
-  ngOnInit(): void {
-
-  }
-}
+export class AcceuilComponent  {}

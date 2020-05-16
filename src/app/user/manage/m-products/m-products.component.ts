@@ -6,7 +6,8 @@ import { JQ_TOKEN } from 'src/app/shared/jquery.service';
 import { TOASTR_TOKEN, Toastr } from 'src/app/shared/toastr.service';
 
 import { SharedService } from 'src/app/shared/shared.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { ProductRXService } from 'src/app/core/productRx.service';
 const paginate = require('jw-paginate');
 @Component({
   selector: 'm-products',
@@ -25,6 +26,7 @@ export class MProductsComponent implements OnInit, OnDestroy {
   selectedProductID: number;
   produtEmitted :Product;
   errorMessage:'';
+
 private selectedCategorySubject = new BehaviorSubject<number>(0);
 selectedCategoryAction$ = this.selectedCategorySubject.asObservable();
   // current page of items
@@ -32,12 +34,15 @@ selectedCategoryAction$ = this.selectedCategorySubject.asObservable();
   constructor(private productService: ProductService,
     @Inject(JQ_TOKEN) private $: any,
     @Inject(TOASTR_TOKEN) private toastr: Toastr,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private productRxService: ProductRXService) { }
     private page: number;
 
   getPage($event) {
     this.page = $event
   }
+
+
 
   categories$ = this.sharedService.categories$.pipe(
     catchError(err=> {
@@ -45,7 +50,6 @@ selectedCategoryAction$ = this.selectedCategorySubject.asObservable();
       return EMPTY
     })
       )
-
   ngOnInit(): void {
     this.productService.productSource$.subscribe(
       res =>{

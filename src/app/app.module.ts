@@ -24,6 +24,7 @@ import { NavAuthComponent } from './shared/nav-auth/nav-auth.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProductDetailAltComponent } from './rxjs/product-list-alt/product-detail-alt.component';
 import { ProductListAltComponent } from './rxjs/product-list-alt/product-list-alt.component';
+import { ProductRXService } from './core/productRx.service';
 
 
 
@@ -68,6 +69,7 @@ let jquery = window['$']
     ProductResolveService,
     ProfileSevice,
     ProductService,
+    ProductRXService,
     SharedService
   ],
 

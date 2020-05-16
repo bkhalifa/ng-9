@@ -1,0 +1,12 @@
+<div class ="card-boyd">
+  <div class ="card-body" *ngIf="categories$ | async as categories " >
+  <div class="list-group">
+  <button type="button" class="list-group-item" (click)="refreshProduct(0)">Dispaly All </button>
+  <button type="button" class="list-group-item" *ngFor="let category of categories "
+  (click)='refreshProduct(category.categoryId)'
+  [ngClass]="{'active':category?.categoryId === (selectedCategoryID$ | async)}" >
+
+  {{category.categoryName}}
+  </button>
+  </div>
+  </div>

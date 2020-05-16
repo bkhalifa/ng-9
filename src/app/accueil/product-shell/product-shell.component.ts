@@ -1,37 +1,45 @@
-import { Component, OnInit, OnDestroy, OnChanges, ViewChild, ElementRef } from '@angular/core';
-import { Product } from 'src/app/core/product';
+import { Component,  ChangeDetectionStrategy } from '@angular/core';
+
 import { ProductService } from 'src/app/core/product.service';
-import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import {  empty, combineLatest } from 'rxjs';
+import {  catchError, map } from 'rxjs/operators';
+import { ProductRXService } from 'src/app/core/productRx.service';
 
 
 @Component({
   selector: 'product-shell',
   templateUrl: './product-shell.component.html',
-  styleUrls: ['./product-shell.component.css']
+  styleUrls: ['./product-shell.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class ProductShellComponent implements OnInit, OnDestroy {
+export class ProductShellComponent {
 
-  constructor(private productService: ProductService) { }
+  constructor(private productRxService: ProductRXService) { }
 
-  sub: Subscription
-  products :Product[]
-  text="Description"
-  values :any
-
-  ngOnInit(): void {
- this.sub =   this.productService.productSource$.subscribe(
-      selectdProducts => this.products =selectdProducts
-    )
-     this.productService.GetProducts().subscribe(
-      data => this.products = data,
-
-    )
-  }
+ errorMessage:'';
 
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe()
-  }
+  productsByCategory$ = combineLatest(
+    this.productRxService.allProducts$,
+    this.productRxService.productsCategoryAction$
+  ).pipe(
+      map(([products, selectedCategory])=>{
+ return  products.filter(product =>
+        // if(selectedCategory ===0){
+
+        // }else{
+          selectedCategory ? product.categoryId === selectedCategory : true)
+        // }
+
+      // }
+
+      }),
+    catchError(err => {
+      this.errorMessage = err ;
+      return empty;
+    })
+  )
+
+
 
 }

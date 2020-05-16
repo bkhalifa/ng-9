@@ -14,7 +14,7 @@ import { EMPTY, Subject } from 'rxjs';
 
 export class ProductListAltComponent  {
   private errorMessageSubject = new Subject<string>();
-errorMessageAction$ = this.errorMessageSubject.asObservable();
+  errorMessageAction$ = this.errorMessageSubject.asObservable();
   constructor(private sharedService:SharedService){}
 
   selectProduct$ = this.sharedService.selectedProduct$;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SharedService } from '../shared/shared.service';
-import {  empty, combineLatest, BehaviorSubject, Subject } from 'rxjs';
-import { catchError, map, startWith } from 'rxjs/operators';
+import {  empty, combineLatest, BehaviorSubject, Subject, interval } from 'rxjs';
+import { catchError, map, startWith, take, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -54,4 +54,6 @@ export class RxjsComponent {
     //emit a value to action stream
     this.categorySelectedSubject.next(+selectedCategoryId);
   }
+
+
 }

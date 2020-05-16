@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, combineLatest, Subject, merge } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, combineLatest, Subject, merge, interval } from 'rxjs';
 import { Product } from '../core/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap, map, scan } from 'rxjs/operators';
+import { catchError, tap, map, scan, shareReplay, take } from 'rxjs/operators';
 import { Category } from '../core/category';
 
 @Injectable()
@@ -45,7 +45,9 @@ export class SharedService {
 
   categories$ = this.http.get<Category[]>(this.categoryUrl)
     .pipe(
-      catchError(this.handleError)
+    tap(categories => console.log(categories)),
+      catchError(this.handleError),
+      shareReplay(1)
     )
 
     products$ = this.http.get<Product[]>(`${this.productsUrl}/product`)
@@ -65,7 +67,9 @@ export class SharedService {
         category:categories.find( c => product.categoryId === c.categoryId).categoryName,
         searchKey:[product.modelName]
       })as Product)
-       )
+       ),
+       //buffer size one one : replay the last value emitted
+       shareReplay(1)
   )
 
   selectedProduct$ = combineLatest([
@@ -74,7 +78,8 @@ export class SharedService {
   ]).pipe(
     map(([products, selectedProductID]) =>{
      return products.find(product => product.productId === selectedProductID);
-    })
+    }),
+    shareReplay(1)
   )
 
   //add product
@@ -95,15 +100,16 @@ private fakePorduct(){
   productImage: "fake image",
   modelNumber: "fake model number",
   unitCost: 12
-
   }
 }
+
   allProductsWithAdd$ = merge(
     this.productsWithCategory$,
     this.productInsertAction$,
   ).pipe(
     scan((acc :Product[], curr:Product) =>[...acc, curr]  )
   )
+  //end add
 
 
 
@@ -146,4 +152,6 @@ private fakePorduct(){
     console.log(errorMessage);
     return throwError(errorMessage);
   }
+
+
 }

@@ -1,36 +1,31 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from "@angular/core";
 import { CategoryService } from 'src/app/category/category.service';
-import { Category } from 'src/app/core/category';
-import { Subscription, EMPTY } from 'rxjs';
 import { ProductService } from 'src/app/core/product.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { ProductRXService } from 'src/app/core/productRx.service';
+import { EMPTY, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'category-shell',
-  template: `
-  <p> &nbsp; </p>
-  <ul *ngIf="categories$ | async as categories ">
-<li class="cat"
-*ngFor="let category of categories  "
- (click)="refreshProduct(category.categoryId)">
-  {{category.categoryName}}
-</li>
-  </ul>
-  `,
+  templateUrl:'./categroy-shell.component.html',
   styles:[`
   .cat{cursor:pointer;font-family: 'Arial';color:#e5e5e5}
-
   `],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CategoryShellComponent {
 
-
+  errorMessage:'';
+  selectedCategoryID ;
   constructor(private categoryService: CategoryService,
-              private producService:ProductService) { }
+              private producService:ProductService,
+              private productRxService:ProductRXService) { }
 
 
- errorMessage:'';
+
+   selectedCategoryID$ =  this.productRxService.productsCategoryAction$;
+
+
    categories$ = this.categoryService.categories$
    .pipe
    (
@@ -40,9 +35,8 @@ export class CategoryShellComponent {
      })
    )
 
-
   refreshProduct(categoryId:number){
-    this.producService.findProductsByCategoryID(categoryId)
+    this.productRxService.selectedCategoryIdStore(categoryId);
   }
 
 
