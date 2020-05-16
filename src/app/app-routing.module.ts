@@ -11,8 +11,13 @@ import { ProductListAltComponent } from './rxjs/product-list-alt/product-list-al
 
 
 const routes: Routes = [
-  { path: '', component:AcceuilComponent , pathMatch: 'full' },
+  {
+    path:'',
+    component:ProductListAltComponent,
+    pathMatch: 'full'
+   },
 
+  { path: 'accueil', component:AcceuilComponent  },
   {
     path: 'categories',
     component: CategoryComponent,

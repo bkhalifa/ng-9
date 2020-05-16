@@ -21,18 +21,12 @@ export class CategoryService {
      catchError(this.handleError)
       )
 
-  public searchText :string
-
-
-
   // GetAllCategories = () => {
-
   //  return this._http
   //       .get<Array<Category>>(this.categoryUrl)
   //        .pipe(
   //          catchError(this.handleError)
   //           )
-
   // }
 
   handleError(error) {

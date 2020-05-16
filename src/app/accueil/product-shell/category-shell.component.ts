@@ -26,8 +26,7 @@ export class CategoryShellComponent {
    selectedCategoryID$ =  this.productRxService.productsCategoryAction$;
 
 
-   categories$ = this.categoryService.categories$
-   .pipe
+   categories$ = this.categoryService.categories$.pipe
    (
      catchError(err=>{
        this.errorMessage = err;

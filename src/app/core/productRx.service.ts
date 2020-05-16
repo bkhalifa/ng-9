@@ -14,7 +14,7 @@ export class ProductRXService{
 
   constructor(private http :HttpClient){
     this.productsByCategorySubject =
-         new BehaviorSubject<number>(JSON.parse(sessionStorage.getItem('categoryID')));
+         new BehaviorSubject<number>(0);
 
    this.productsCategoryAction$ = this.productsByCategorySubject.asObservable();
   }
@@ -29,7 +29,7 @@ export class ProductRXService{
 
 
   selectedCategoryIdStore(categoryId:number):void{
-    sessionStorage.setItem('categoryID', JSON.stringify(categoryId));
+    //sessionStorage.setItem('categoryID', JSON.stringify(categoryId));
     this.productsByCategorySubject.next(categoryId);
 
   }
