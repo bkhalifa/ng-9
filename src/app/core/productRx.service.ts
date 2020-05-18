@@ -1,38 +1,88 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product';
-import { throwError,  Subject, BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { throwError,  Subject, BehaviorSubject, Observable, combineLatest, merge, pipe, empty } from 'rxjs';
+import { catchError, map, scan, tap } from 'rxjs/operators';
+
+import { Category } from './category';
 
 @Injectable()
 export class ProductRXService{
   private productsUrl = 'http://localhost:8081/api';
+  private categoryUrl = 'http://localhost:8081/api';
 
-  private productsByCategorySubject : BehaviorSubject<number>;
-  productsCategoryAction$ : Observable<number>;
+  // products by catgory
+  private productsByCategorySubject = new BehaviorSubject<number>(0);
+  productsByCategoryAction$ = this.productsByCategorySubject.asObservable();
+
+  //add product
+ private productInsertSubject = new Subject<Product>();
+ productInsertAction$ = this.productInsertSubject.asObservable();
+
+  constructor(private http :HttpClient){ }
 
 
-  constructor(private http :HttpClient){
-    this.productsByCategorySubject =
-         new BehaviorSubject<number>(0);
-
-   this.productsCategoryAction$ = this.productsByCategorySubject.asObservable();
-  }
-
+  allCategories$  = this.http.get<Category[]>(`${this.categoryUrl}/Category`)
+  .pipe(
+    catchError(this.handleError)
+     )
 
   allProducts$ = this.http.get<Product[]>(`${this.productsUrl}/Product`).pipe(
     catchError(this.handleError)
   )
+//products by category
+  productsCategory$ = combineLatest(
+    this.allProducts$,
+    this.productsByCategoryAction$.pipe(
+      tap(r => console.log(`tap combine last component ${r}`))
+    )
+  ).pipe(
+      map(([products, selectedCategory])=>{
+      return  products.filter(product =>
+         selectedCategory ? product.categoryId === selectedCategory : true)
 
-//product by category
-
-
+      }),
+    catchError(err => {
+      console.log(err) ;
+      return empty;
+    })
+  )
 
   selectedCategoryIdStore(categoryId:number):void{
     //sessionStorage.setItem('categoryID', JSON.stringify(categoryId));
     this.productsByCategorySubject.next(categoryId);
 
   }
+
+  //add product
+private productAddSubject = new Subject<Product>();
+productAddAction$ = this.productInsertSubject.asObservable();
+
+
+AddProduct(newProduct? :Product){
+  newProduct = newProduct || this.fakePorduct();
+  this.productAddSubject.next(newProduct);
+ }
+ private fakePorduct(){
+  return {
+  productId : 1,
+  categoryId: 17,
+  description: "hello this is fake",
+  modelName: "fake model",
+  productImage: "fake image",
+  modelNumber: "fake model number",
+  unitCost: 12
+  }
+}
+
+//merge with scan
+// allproductsWithAdd$ = merge(
+//   this. allProducts$,
+//   this.productAddAction$
+// ).pipe(
+//   scan((acc:Product[], curr:Product) =>[...acc, curr])
+// )
+
 
   handleError(error) {
     let errorMessage = '';
@@ -46,5 +96,6 @@ export class ProductRXService{
     console.log(errorMessage);
     return throwError(errorMessage);
   }
+
 
 }

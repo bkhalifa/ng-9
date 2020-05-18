@@ -22,8 +22,4 @@ import { JQ_TOKEN } from '../jquery.service';
 })
 export class DetailProductComponent{
   @Input() title:string
-
-
-
-
 }

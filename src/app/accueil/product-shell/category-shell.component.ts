@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from "@angular/core";
 import { CategoryService } from 'src/app/category/category.service';
-import { ProductService } from 'src/app/core/product.service';
 import { catchError, tap } from 'rxjs/operators';
 import { ProductRXService } from 'src/app/core/productRx.service';
-import { EMPTY, BehaviorSubject } from 'rxjs';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'category-shell',
@@ -18,12 +17,11 @@ export class CategoryShellComponent {
   errorMessage:'';
   selectedCategoryID ;
   constructor(private categoryService: CategoryService,
-              private producService:ProductService,
               private productRxService:ProductRXService) { }
 
 
 
-   selectedCategoryID$ =  this.productRxService.productsCategoryAction$;
+   selectedCategoryID$ =  this.productRxService.productsByCategoryAction$;
 
 
    categories$ = this.categoryService.categories$.pipe

@@ -1,6 +1,8 @@
 <div class="container">
-
-  <div class="row" *ngIf="productsByCategory$ |async as products">
+  <div>
+    <button class="info btn-info" trigger-add-product="add-product-shell"> Add</button>
+  </div>
+  <div class="row" *ngIf="productsCategory$ | async as products">
 
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let product of products">
       <div class="box-part text-center">
@@ -11,7 +13,7 @@
             &nbsp;
           </div>
           <div class="col-md-3">
-            <a href="#"> <img src="assets/images/add_to_basket.png"/></a>
+            <a href="#"> <img src="assets/images/add_to_basket.png" /></a>
           </div>
         </div>
 
@@ -31,27 +33,30 @@
 
           </div>
           <div class="col-md-4">
-<span class="currency">
-  {{product.unitCost | currency:'EUR':true}}
-</span>
-
-
+            <span class="currency">
+              {{product.unitCost | currency:'EUR':true}}
+            </span>
           </div>
         </div>
-
         <div class="row">
           <div class="col-md-8">
 
             <product-text [description]="product.description" #text></product-text>
+          </div>
+          <div class="col-md-4">
+            <img class="img" src="assets/images/detail.png" alt="detail" [routerLink]="['detail',product.productId]" />
+          </div>
         </div>
-        <div class="col-md-4">
-          <img class="img" src="assets/images/detail.png"  alt="detail"
-           [routerLink]="['detail',product.productId]" />
-        </div>
-        </div>
-     </div>
       </div>
+    </div>
 
 
   </div>
 </div>
+
+
+<modal-add-product-shell elementId="add-product-shell" title="add product">
+
+  <create-product-shell></create-product-shell>
+
+</modal-add-product-shell>
