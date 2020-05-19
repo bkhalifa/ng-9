@@ -25,6 +25,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProductDetailAltComponent } from './rxjs/product-list-alt/product-detail-alt.component';
 import { ProductListAltComponent } from './rxjs/product-list-alt/product-list-alt.component';
 import { ProductRXService } from './core/productRx.service';
+import { ShoppingService } from './shared/shopping.service';
 
 
 
@@ -70,7 +71,8 @@ let jquery = window['$']
     ProfileSevice,
     ProductService,
     ProductRXService,
-    SharedService
+    SharedService,
+    ShoppingService
   ],
 
   bootstrap: [AppComponent]

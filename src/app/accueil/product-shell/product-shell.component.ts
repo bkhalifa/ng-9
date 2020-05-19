@@ -5,6 +5,7 @@ import {  catchError, map, scan, tap } from 'rxjs/operators';
 import { ProductRXService } from 'src/app/core/productRx.service';
 import { Product } from 'src/app/core/product';
 import { SharedService } from 'src/app/shared/shared.service';
+import { ShoppingService } from 'src/app/shared/shopping.service';
 
 
 @Component({
@@ -15,10 +16,20 @@ import { SharedService } from 'src/app/shared/shared.service';
 })
 export class ProductShellComponent {
 
-  constructor(private productRxService: ProductRXService) { }
+  constructor(private productRxService: ProductRXService,
+             private shoppingService:ShoppingService) {
+
+             }
 
 
-   productsCategory$ = this.productRxService.productsCategory$;
+   productsCategory$ = this.productRxService.productsCategory$.pipe(
+     catchError(err=>{
+       console.log(err);
+       return empty;
+     })
+   )
+
+
 
 
 

@@ -146,7 +146,7 @@ constructor(private productRxService:ProductRXService ){}
       }
 
        formData.append('model', JSON.stringify(pr));
-
+       this.productRxService.AddProduct(pr);
 
     //  //  this.productService.addProduct(formData,pr).subscribe(
 

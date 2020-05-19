@@ -30,6 +30,7 @@ export class ProductRXService{
   allProducts$ = this.http.get<Product[]>(`${this.productsUrl}/Product`).pipe(
     catchError(this.handleError)
   )
+
 //products by category
   productsCategory$ = combineLatest(
     this.allProducts$,
@@ -54,10 +55,8 @@ export class ProductRXService{
 
   }
 
-  //add product
-private productAddSubject = new Subject<Product>();
-productAddAction$ = this.productInsertSubject.asObservable();
 
+  //add product
 
 AddProduct(newProduct? :Product){
   newProduct = newProduct || this.fakePorduct();
@@ -75,13 +74,17 @@ AddProduct(newProduct? :Product){
   }
 }
 
-//merge with scan
-// allproductsWithAdd$ = merge(
-//   this. allProducts$,
-//   this.productAddAction$
-// ).pipe(
-//   scan((acc:Product[], curr:Product) =>[...acc, curr])
-// )
+  private productAddSubject = new Subject<Product>();
+  productAddAction$ = this.productInsertSubject.asObservable();
+  //merge with scan
+allproductsWithAdd$ = merge(
+  this.productsCategory$,
+  this.productAddAction$
+).pipe(
+  scan((acc:Product[], curr:Product) =>[...acc, curr])
+)
+
+
 
 
   handleError(error) {
@@ -99,3 +102,4 @@ AddProduct(newProduct? :Product){
 
 
 }
+
