@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, combineLatest, Subject, merge, interval } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, combineLatest, Subject, merge, interval, from, of } from 'rxjs';
 import { Product } from '../core/product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap, map, scan, shareReplay, take } from 'rxjs/operators';
+import { catchError, tap, map, scan, shareReplay, take, mergeMap, toArray, switchMap, filter } from 'rxjs/operators';
 import { Category } from '../core/category';
+import { ShoppingCart } from '../core/shoppingCart';
 
 @Injectable()
 export class SharedService {
@@ -18,6 +19,8 @@ export class SharedService {
   private productsUrl = 'http://localhost:8081/api';
   private productLocalUrl = 'http://localhost:8656/api';
   private categoryUrl: string = 'http://localhost:8081/api/Category';
+  private shoppingUrl ='http://localhost:8081/api';
+
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
@@ -31,6 +34,7 @@ export class SharedService {
   selectedProductChange(productId:number){
     this.selectedProductSubject.next(productId);
   }
+
 
   constructor(private http: HttpClient) {
     this.message = new BehaviorSubject<string>('First Message');
@@ -82,6 +86,7 @@ export class SharedService {
     shareReplay(1)
   )
 
+
   //add product
   private productInsertSubject = new Subject<Product>();
   productInsertAction$ = this.productInsertSubject.asObservable();
@@ -113,23 +118,37 @@ private fakePorduct(){
 
 
 
-  // products$ = this.http.get<Product[]>(`${this.productsUrl}/product`)
-  //   .pipe(
-  //     tap(products => products.map(product =>
-  //       ({
-  //         ...product,
-  //         unitCost: product.unitCost * 0,
-  //         searchKey: [product.modelName],
 
-  //       }) as Product)),
-  //     tap(products => console.log(products)),
-  //     catchError(this.handleError)
-  //   )
+//shopping carts
+shoppingCarts$ = this.http.get<ShoppingCart[]>(`${this.shoppingUrl}/Shopping/carts`).pipe(
+  tap(data => console.log('shopping',JSON.stringify(data))),
+  shareReplay(1),
+  catchError(this.handleError)
+)
+
+//get it all approach
+selectproductCarts$ = combineLatest(
+this.selectedProduct$,
+this.shoppingCarts$
+).pipe(
+  map(([selectedProduct, shoppingCarts])=>
+  shoppingCarts.filter(cart => selectedProduct.productId === cart.productId)
+)
+)
+
+// just in time approach
 
 
-  //select on click detail product
-
-
+  selectedprodcutCartsJit$ = this.selectedProduct$.pipe(
+    filter(product => Boolean(product)),
+    mergeMap(product =>
+      from([product.productId])
+        .pipe(
+          mergeMap(productId =>
+            this.http.get<any>(`${this.shoppingUrl}/Shopping/cartByProduct?productId=${productId}`)),
+          toArray(),
+          tap(data => console.log(JSON.stringify(data))),
+        )));
 
 
   nextPage(page: number) {

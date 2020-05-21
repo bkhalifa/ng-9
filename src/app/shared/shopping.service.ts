@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
-import { concatMap, tap, mergeMap, switchMap } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
+import { concatMap, tap, mergeMap, switchMap, shareReplay, catchError } from 'rxjs/operators';
+import { ShoppingCart } from '../core/shoppingCart';
 
 @Injectable({
   providedIn:'root'
@@ -9,12 +10,18 @@ import { concatMap, tap, mergeMap, switchMap } from 'rxjs/operators';
 export class ShoppingService{
   private shoppingUrl ='http://localhost:8081/api';
 
+  shoppingCarts$ = this.http.get<ShoppingCart[]>(`${this.shoppingUrl}/api/Shopping/carts`).pipe(
+    tap(data => console.log('shopping',JSON.stringify(data))),
+    shareReplay(1),
+    catchError(this.handleError)
+  )
 
   //1 - concatMap
 
  shoppingswWithConcatMap$ = of(355,360,377).pipe(
    tap(productId => console.log('contactMap source Observable', productId)),
-   concatMap((productId) =>  this.http.get<any>(`${this.shoppingUrl}/Shopping/cartByProduct?productId=${productId}`)
+   concatMap((productId) =>
+   this.http.get<any>(`${this.shoppingUrl}/Shopping/cartByProduct?productId=${productId}`)
 
  ));
 
@@ -39,7 +46,18 @@ shoppingswWithSwithMap$ = of(355,360,377).pipe(
 }
 
 
-
+handleError(error) {
+  let errorMessage = '';
+  if (error.error instanceof ErrorEvent) {
+    // client-side error
+    errorMessage = `Error: ${error.error.message}`;
+  } else {
+    // server-side error
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  }
+  console.log(errorMessage);
+  return throwError(errorMessage);
+}
 }
 
 

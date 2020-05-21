@@ -1,17 +1,37 @@
-<p>product detail</p>
-<div class="card"
-*ngIf ="product$  | async as product">
 
+<div class="card" *ngIf="vm$  | async as vm">
+  <div *ngIf="pageTitle$ | async as pageTilte">
+    <p>{{vm.pageTitle}} </p>
+
+
+  </div>
   <div class="card-body">
-    <h5 class="card-title">{{product.modelName}}</h5>
+    <h5 class="card-title">{{vm.product.modelName}}</h5>
     <p class="card-text">
-      {{product.description}}
+      {{vm.product.description}}
     </p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"> {{product.modelNumber}}</li>
-    <li class="list-group-item"> {{product.unitCost}}</li>
+    <li class="list-group-item"> {{vm.product.modelNumber}}</li>
+    <li class="list-group-item"> {{vm.product.unitCost}}</li>
 
   </ul>
+  <table class="table">
+    <thead>
+      <th> record </th>
+      <th> date </th>
+      <th> quantity </th>
+      <th> cart </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cart of vm.productSuppliers">
+        <td> {{cart.recordId}}</td>
+        <td> {{cart.dateCreated |  date:'fullDate'}}</td>
+        <td> {{cart.quantity}}</td>
+        <td> {{cart.cartId}}</td>
+      </tr>
+    </tbody>
 
+  </table>
 </div>
+

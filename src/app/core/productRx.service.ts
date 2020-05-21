@@ -2,14 +2,17 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product';
 import { throwError,  Subject, BehaviorSubject, Observable, combineLatest, merge, pipe, empty } from 'rxjs';
-import { catchError, map, scan, tap } from 'rxjs/operators';
+import { catchError, map, scan, tap, shareReplay } from 'rxjs/operators';
 
 import { Category } from './category';
+import { ShoppingCart } from './shoppingCart';
 
 @Injectable()
 export class ProductRXService{
   private productsUrl = 'http://localhost:8081/api';
   private categoryUrl = 'http://localhost:8081/api';
+  private shoppingUrl ='http://localhost:8081/api';
+
 
   // products by catgory
   private productsByCategorySubject = new BehaviorSubject<number>(0);
@@ -48,6 +51,15 @@ export class ProductRXService{
       return empty;
     })
   )
+;
+
+// shopping carts
+  shoppingCarts$ = this.http.get<ShoppingCart[]>(`${this.shoppingUrl}/api/Shopping/carts`).pipe(
+    tap(data => console.log('shopping',JSON.stringify(data))),
+    shareReplay(1),
+    catchError(this.handleError)
+  )
+
 
   selectedCategoryIdStore(categoryId:number):void{
     //sessionStorage.setItem('categoryID', JSON.stringify(categoryId));
