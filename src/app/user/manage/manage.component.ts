@@ -21,7 +21,6 @@ export class ManageComponent implements OnInit {
   if(resolveUsers instanceof TrackError){
     console.log(`manage user component ${resolveUsers.message}`)
   }else{
-
     this.users = resolveUsers
   }
   }
